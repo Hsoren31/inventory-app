@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/games", gameRouter);
-app.get("/", (req, res) => res.send("hello world!"));
+app.get("/", (req, res) => res.render("index"));
 
 const PORT = 3000;
 app.listen(PORT, () => {

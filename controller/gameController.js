@@ -3,7 +3,7 @@ const db = require("../db/queries");
 async function getGames(req, res) {
   const games = await db.getAllGames();
   console.log("Games: ", games);
-  res.send("Games: " + games.map((game) => game.title).join(", "));
+  res.render("games", { games: games });
 }
 
 function createGameGet(req, res) {
