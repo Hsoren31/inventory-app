@@ -10,6 +10,18 @@ function getGames(req, res) {
   res.send("Games: " + games.map((game) => game.title).join(", "));
 }
 
+function createGameGet(req, res) {
+  res.render("createGame", { title: "Create Game" });
+}
+
+function createGamePost(req, res) {
+  const { title, year, price } = req.body;
+  db.push({ title, year, price });
+  res.redirect("/games");
+}
+
 module.exports = {
   getGames,
+  createGameGet,
+  createGamePost,
 };
