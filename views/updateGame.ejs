@@ -17,7 +17,7 @@
         value="<%= game.title %>"
         required
       />
-      <label for="year">Year: </label>
+      <label for="year">Release Year: </label>
       <input
         type="number"
         name="year"
@@ -35,70 +35,15 @@
       />
       <fieldset>
         <legend>Genres:</legend>
+        <% genres.forEach(genre => { %>
         <div>
-          <input type="checkbox" name="genres" id="action" value="action" <%=
-          genres.includes("action") ? "checked" : "" %> />
-          <label for="genres">Action</label>
+          <input type="checkbox" name="genres" id="<%= genre %>" value="<%=
+          genre %>" <%= gamesGenre.includes(genre) ? "checked" : "" %> />
+          <label for="genres"
+            ><%= genre.charAt(0).toUpperCase() + genre.slice(1) %></label
+          >
         </div>
-        <div>
-          <input type="checkbox" name="genres" id="adventure" value="adventure"
-          <%= genres.includes("adventure") ? "checked" : "" %> />
-          <label for="genres">Adventure</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="arcade" value="arcade" <%=
-          genres.includes("arcade") ? "checked" : "" %> />
-          <label for="genres">Arcade</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="casual" value="casual" <%=
-          genres.includes("casual") ? "checked" : "" %> />
-          <label for="genres">Casual</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="horror" value="horror" <%=
-          genres.includes("horror") ? "checked" : "" %> />
-          <label for="genres">Horror</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="puzzles" value="puzzles" <%=
-          genres.includes("puzzles") ? "checked" : "" %> />
-          <label for="genres">Puzzles</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="role-playing"
-          value="role-playing" <%= genres.includes("role-playing") ? "checked" :
-          "" %> />
-          <label for="genres">Role-playing</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="simulation"
-          value="simulation" <%= genres.includes("simulation") ? "checked" : ""
-          %> />
-          <label for="genres">Simulation</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="sports-racing" value="sports
-          & racing" <%= genres.includes("sports & racing") ? "checked" : "" %>
-          />
-          <label for="genres">Sports & Racing</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="story_rich"
-          value="story-rich" <%= genres.includes("story-rich") ? "checked" : ""
-          %> />
-          <label for="genres">Story-Rich</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="strategy" value="strategy"
-          <%= genres.includes("strategy") ? "checked" : "" %> />
-          <label for="genres">Strategy</label>
-        </div>
-        <div>
-          <input type="checkbox" name="genres" id="themes" value="themes" <%=
-          genres.includes("themes") ? "checked" : "" %> />
-          <label for="genres">Themes</label>
-        </div>
+        <% }) %>
       </fieldset>
       <button type="submit">Submit Game</button>
     </form>

@@ -5,6 +5,11 @@ async function getAllGames() {
   return rows;
 }
 
+async function getAllGenres() {
+  const { rows } = await pool.query("SELECT genre FROM genres");
+  return rows;
+}
+
 async function getGenreById(genre) {
   const { rows } = await pool.query(
     "SELECT id FROM genres WHERE genre = ($1)",
@@ -74,6 +79,7 @@ async function updateGame(id, { title, year, price, genres }) {
 
 module.exports = {
   getAllGames,
+  getAllGenres,
   insertGame,
   getGameById,
   getGameGenres,
