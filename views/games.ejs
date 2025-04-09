@@ -9,7 +9,10 @@
     <h1>Games:</h1>
     <ul>
       <% games.map((game) => { %>
-      <li><%= game.title %>, <%=game.year %>, $<%= game.price %></li>
+      <li>
+        <%= game.title %>, <%=game.year %>, $<%= game.price %>
+        <a href="/games/<%= game.id %>/update">Update</a>
+      </li>
       <%}) %>
     </ul>
     <a href="/games/create">Add Game</a>

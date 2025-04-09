@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <%- include("partials/errors.ejs") %>
+    <form action="/games/<%= game.id %>/update" method="post">
+      <label for="title">Title: </label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        value="<%= game.title %>"
+        required
+      />
+      <label for="year">Year: </label>
+      <input
+        type="number"
+        name="year"
+        id="year"
+        value="<%= game.year %>"
+        required
+      />
+      <label for="price">Price: </label>
+      <input
+        type="number"
+        name="price"
+        id="price"
+        value="<%= game.price %>"
+        required
+      />
+      <fieldset>
+        <legend>Genres:</legend>
+        <div>
+          <input type="checkbox" name="genres" id="action" value="action" <%=
+          genres.includes("action") ? "checked" : "" %> />
+          <label for="genres">Action</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="adventure" value="adventure"
+          <%= genres.includes("adventure") ? "checked" : "" %> />
+          <label for="genres">Adventure</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="arcade" value="arcade" <%=
+          genres.includes("arcade") ? "checked" : "" %> />
+          <label for="genres">Arcade</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="casual" value="casual" <%=
+          genres.includes("casual") ? "checked" : "" %> />
+          <label for="genres">Casual</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="horror" value="horror" <%=
+          genres.includes("horror") ? "checked" : "" %> />
+          <label for="genres">Horror</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="puzzles" value="puzzles" <%=
+          genres.includes("puzzles") ? "checked" : "" %> />
+          <label for="genres">Puzzles</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="role-playing"
+          value="role-playing" <%= genres.includes("role-playing") ? "checked" :
+          "" %> />
+          <label for="genres">Role-playing</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="simulation"
+          value="simulation" <%= genres.includes("simulation") ? "checked" : ""
+          %> />
+          <label for="genres">Simulation</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="sports-racing" value="sports
+          & racing" <%= genres.includes("sports & racing") ? "checked" : "" %>
+          />
+          <label for="genres">Sports & Racing</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="story_rich"
+          value="story-rich" <%= genres.includes("story-rich") ? "checked" : ""
+          %> />
+          <label for="genres">Story-Rich</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="strategy" value="strategy"
+          <%= genres.includes("strategy") ? "checked" : "" %> />
+          <label for="genres">Strategy</label>
+        </div>
+        <div>
+          <input type="checkbox" name="genres" id="themes" value="themes" <%=
+          genres.includes("themes") ? "checked" : "" %> />
+          <label for="genres">Themes</label>
+        </div>
+      </fieldset>
+      <button type="submit">Submit Game</button>
+    </form>
+  </body>
+</html>
