@@ -34,6 +34,23 @@
         required
       />
       <fieldset>
+        <legend>Developers:</legend>
+        <% developers.forEach(developer => { %>
+        <div>
+          <input
+            type="checkbox"
+            name="developers"
+            id="<%= developer %>"
+            value="<%= developer %>"
+          />
+          <label for="developers"
+            ><%= developer.charAt(0).toUpperCase() + developer.slice(1)
+            %></label
+          >
+        </div>
+        <% }) %>
+      </fieldset>
+      <fieldset>
         <legend>Genres:</legend>
         <% genres.forEach(genre => { %>
         <div>

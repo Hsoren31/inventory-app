@@ -1,4 +1,5 @@
 const pool = require("./pool");
+const developerQuery = require("./developerQueries");
 
 async function getAllGames() {
   const { rows } = await pool.query("SELECT * FROM games");
@@ -47,19 +48,33 @@ async function addGameGenres(gameId, genreId) {
   ]);
 }
 
-async function insertGame({ title, year, price, genres }) {
+async function insertGame({ title, year, price, genres, developers }) {
+  console.log(developers);
   await pool.query(
     "INSERT INTO games (title, year, price) VALUES ($1, $2, $3)",
     [title, year, price]
   );
-  if (!genres) {
+  const gameId = await getGameId(title);
+
+  if (!genres && !developers) {
     return;
   }
-  const gameId = await getGameId(title);
-  await genres.forEach(async (genre) => {
-    const genreId = await getGenreById(genre);
+  if (!Array.isArray(developers)) {
+    await developerQuery.addGameDeveloper(gameId[0].id, developers);
+  } else {
+    developers.forEach(async (developer) => {
+      await developerQuery.addGameDeveloper(gameId[0].id, developer);
+    });
+  }
+  if (!Array.isArray(genres)) {
+    const genreId = await getGenreById(genres);
     await addGameGenres(gameId[0].id, genreId[0].id);
-  });
+  } else {
+    genres.forEach(async (genre) => {
+      const genreId = await getGenreById(genre);
+      await addGameGenres(gameId[0].id, genreId[0].id);
+    });
+  }
 }
 
 async function updateGame(id, { title, year, price, genres }) {
@@ -67,9 +82,14 @@ async function updateGame(id, { title, year, price, genres }) {
     "UPDATE games SET title = ($1), year = ($2), price = ($3) WHERE id = ($4)",
     [title, year, price, id]
   );
-  if (!genres) {
+  if (!genres && !developers) {
     return;
   }
+  await developers.forEach(async (developer) => {
+    await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [id]);
+    const developerId = await developerQuery.getDeveloperById(developer);
+    await developerQuery.addGameDeveloper(id, developerId);
+  });
   await genres.forEach(async (genre) => {
     await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [id]);
     const genreId = await getGenreById(genre);

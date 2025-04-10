@@ -27,6 +27,21 @@ INSERT INTO genres (genre) VALUES
 ('simulation'), ('strategy'), ('sports & racing'),
 ('themes'), ('puzzles'), ('arcade'), 
 ('casual'), ('story-rich');
+
+CREATE TABLE IF NOT EXISTS developers (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  developer TEXT
+);
+
+CREATE TABLE IF NOT EXISTS game_developers (
+  game_id integer REFERENCES games,
+  developer_id integer REFERENCES developers,
+  PRIMARY KEY (game_id, developer_id)
+);
+
+INSERT INTO developers (developer) VALUES
+('nintendo'), ('electronic arts'), ('microsoft'), ('sony interactive entertainment'),
+('ubisoft'), ('take-two interactive software'), ('tencent'), ('bandai namco');
 `;
 
 async function main() {

@@ -15,6 +15,24 @@
       <input type="number" name="year" id="year" required />
       <label for="price">Price: </label>
       <input type="number" name="price" id="price" required />
+      <label for="developers">Select a Developer: </label>
+      <fieldset>
+        <legend>Developers:</legend>
+        <% developers.forEach(developer => { %>
+        <div>
+          <input
+            type="checkbox"
+            name="developers"
+            id="<%= developer %>"
+            value="<%= developer %>"
+          />
+          <label for="developers"
+            ><%= developer.charAt(0).toUpperCase() + developer.slice(1)
+            %></label
+          >
+        </div>
+        <% }) %>
+      </fieldset>
       <fieldset>
         <legend>Genres:</legend>
         <% genres.forEach(genre => { %>

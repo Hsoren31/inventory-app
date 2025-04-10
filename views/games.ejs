@@ -10,7 +10,8 @@
     <ul>
       <% games.map((game) => { %>
       <li>
-        <%= game.title %>, <%=game.year %>, $<%= game.price %>
+        <%= game.title %>, <%=game.year %>, $<%= game.price %>, <%=
+        game.developer%>
         <a href="/games/<%= game.id %>/update">Update</a>
         <form action="/games/<%= game.id %>/delete" method="post">
           <button

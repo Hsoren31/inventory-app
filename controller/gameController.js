@@ -1,4 +1,5 @@
 const db = require("../db/gameQueries");
+const developerDb = require("../db/developerQueries");
 
 async function getGames(req, res) {
   res.render("games", {
@@ -9,13 +10,17 @@ async function getGames(req, res) {
 async function createGameGet(req, res) {
   res.render("createGame", {
     title: "Create Game",
+    developers: (await developerDb.getAllDevelopers())
+      .map((obj) => Object.values(obj))
+      .flat(),
     genres: (await db.getAllGenres()).map((obj) => Object.values(obj)).flat(),
   });
 }
 
 async function createGamePost(req, res) {
-  const { title, year, price, genres } = req.body;
-  await db.insertGame({ title, year, price, genres });
+  console.log(req.body);
+  const { title, year, price, genres, developers } = req.body;
+  await db.insertGame({ title, year, price, genres, developers });
   res.redirect("/games");
 }
 
@@ -23,6 +28,9 @@ async function gameUpdateGet(req, res) {
   res.render("updateGame", {
     title: "Update Game",
     game: (await db.getGameById(req.params.id))[0],
+    developers: (await developerDb.getAllDevelopers())
+      .map((obj) => Object.values(obj))
+      .flat(),
     genres: (await db.getAllGenres()).map((obj) => Object.values(obj)).flat(),
     gamesGenre: (await db.getGameGenres(req.params.id))
       .map((obj) => Object.values(obj))
@@ -31,8 +39,14 @@ async function gameUpdateGet(req, res) {
 }
 
 async function gameUpdatePost(req, res) {
-  const { title, year, price, genres } = req.body;
-  await db.updateGame(req.params.id, { title, year, price, genres });
+  const { title, year, price, genres, developers } = req.body;
+  await db.updateGame(req.params.id, {
+    title,
+    year,
+    price,
+    genres,
+    developers,
+  });
   res.redirect("/games");
 }
 
