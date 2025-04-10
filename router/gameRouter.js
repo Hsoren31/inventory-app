@@ -9,4 +9,6 @@ gameRouter.post("/create", gameController.createGamePost);
 gameRouter.get("/:id/update", gameController.gameUpdateGet);
 gameRouter.post("/:id/update", gameController.gameUpdatePost);
 
+gameRouter.post("/:id/delete", gameController.gameDeletePost);
+
 module.exports = gameRouter;
