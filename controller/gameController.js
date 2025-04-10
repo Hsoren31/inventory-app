@@ -1,4 +1,4 @@
-const db = require("../db/queries");
+const db = require("../db/gameQueries");
 
 async function getGames(req, res) {
   res.render("games", {
