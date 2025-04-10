@@ -6,3 +6,13 @@ exports.getGenres = async (req, res) => {
     genres: await db.getAllGenres(),
   });
 };
+
+exports.createGenreGet = async (req, res) => {
+  res.render("createGenre", { title: "Create Genre" });
+};
+
+exports.createGenrePost = async (req, res) => {
+  const { genreName } = req.body;
+  await db.insertGenre(genreName);
+  res.redirect("/genres");
+};

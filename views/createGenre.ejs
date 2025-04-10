@@ -7,11 +7,10 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <ul>
-      <% genres.map((name) => { %>
-      <li><%= name.genre.charAt(0).toUpperCase() + name.genre.slice(1) %></li>
-      <%}) %>
-    </ul>
-    <a href="/genres/create">Create Genre</a>
+    <form action="/genres/create" method="post">
+      <label for="genreName">Genre Name: </label>
+      <input type="text" name="genreName" id="genreName" />
+      <button type="submit">Submit</button>
+    </form>
   </body>
 </html>
