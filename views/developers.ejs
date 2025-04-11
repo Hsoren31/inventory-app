@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <ul>
+      <% developers.map((developer) => { %>
+      <li><%= developer.charAt(0).toUpperCase() + developer.slice(1) %></li>
+      <% }) %>
+    </ul>
+    <a href="/developers/create">Add Developer</a>
+  </body>
+</html>
