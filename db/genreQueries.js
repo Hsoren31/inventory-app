@@ -48,11 +48,19 @@ async function addGameGenres(gameId, genres) {
 }
 
 async function updateGenres(gameId, genres) {
-  await genres.forEach(async (genre) => {
+  if (!genres) {
     await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
-    const genreId = await getGenreById(genre);
-    await addGameGenres(gameId, genreId[0].id);
-  });
+    return;
+  } else if (!Array.isArray(genres)) {
+    await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
+    await addGameGenres(gameId, genres);
+    return;
+  } else {
+    await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
+    genres.forEach(async (genre) => {
+      await addGameGenres(gameId, genre);
+    });
+  }
 }
 
 module.exports = {
