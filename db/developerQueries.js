@@ -1,38 +1,50 @@
 const pool = require("./pool");
 
-getAllDevelopers = async () => {
+let getAllDevelopers = async () => {
   const { rows } = await pool.query(
     "SELECT developer FROM developers ORDER BY developer"
   );
   return rows;
 };
 
-getDeveloperById = async (developer) => {
+let getDeveloperId = async (developer) => {
   const { rows } = await pool.query(
     "SELECT id FROM developers WHERE developer = ($1)",
     [developer]
   );
-  return rows;
+  return rows[0].id;
 };
 
-insertDeveloper = async (developer) => {
+let insertDeveloper = async (developer) => {
   await pool.query("INSERT INTO developers (developer) VALUES ($1)", [
     developer,
   ]);
 };
 
-addGameDeveloper = async (gameId, developer) => {
-  const developerId = await getDeveloperById(developer);
-  console.log(gameId, developerId);
-  await pool.query("INSERT INTO game_developers VALUES ($1, $2)", [
-    gameId,
-    developerId[0].id,
-  ]);
+let addGameDeveloper = async (gameId, developers) => {
+  if (!developers) {
+    return;
+  } else if (!Array.isArray(developers)) {
+    const developerId = await getDeveloperId(developers);
+    await pool.query("INSERT INTO game_developers VALUES ($1, $2)", [
+      gameId,
+      developerId,
+    ]);
+    return;
+  } else {
+    developers.map(async (developer) => {
+      const developerId = await getDeveloperId(developer);
+      await pool.query("INSERT INTO game_developers VALUES ($1, $2)", [
+        gameId,
+        developerId,
+      ]);
+    });
+  }
 };
 
 module.exports = {
   getAllDevelopers,
-  getDeveloperById,
+  getDeveloperId,
   insertDeveloper,
   addGameDeveloper,
 };

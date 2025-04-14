@@ -2,7 +2,7 @@ const pool = require("./pool");
 const developerQuery = require("./developerQueries");
 
 async function getAllGames() {
-  const { rows } = await pool.query("SELECT * FROM games");
+  const { rows } = await pool.query("SELECT * FROM games ORDER BY title");
   return rows;
 }
 
@@ -11,12 +11,12 @@ async function getAllGenres() {
   return rows;
 }
 
-async function getGenreById(genre) {
+async function getGenreId(genre) {
   const { rows } = await pool.query(
     "SELECT id FROM genres WHERE genre = ($1)",
     [genre]
   );
-  return rows;
+  return rows[0].id;
 }
 
 async function getGameById(gameId) {
@@ -30,7 +30,7 @@ async function getGameId(gameTitle) {
   const { rows } = await pool.query("SELECT id FROM games WHERE title = ($1)", [
     gameTitle,
   ]);
-  return rows;
+  return rows[0].id;
 }
 
 async function getGameGenres(gameId) {
@@ -41,40 +41,35 @@ async function getGameGenres(gameId) {
   return rows;
 }
 
-async function addGameGenres(gameId, genreId) {
-  await pool.query("INSERT INTO game_genres VALUES ($1, $2)", [
-    gameId,
-    genreId,
-  ]);
+async function addGameGenres(gameId, genres) {
+  if (!genres) {
+    return;
+  } else if (!Array.isArray(genres)) {
+    const genreId = await getGenreId(genres);
+    await pool.query("INSERT INTO game_genres VALUES ($1, $2)", [
+      gameId,
+      genreId,
+    ]);
+    return;
+  } else {
+    genres.map(async (genre) => {
+      const genreId = await getGenreId(genre);
+      await pool.query("INSERT INTO game_genres VALUES ($1, $2)", [
+        gameId,
+        genreId,
+      ]);
+    });
+  }
 }
 
 async function insertGame({ title, year, price, genres, developers }) {
-  console.log(developers);
   await pool.query(
     "INSERT INTO games (title, year, price) VALUES ($1, $2, $3)",
     [title, year, price]
   );
   const gameId = await getGameId(title);
-
-  if (!genres && !developers) {
-    return;
-  }
-  if (!Array.isArray(developers)) {
-    await developerQuery.addGameDeveloper(gameId[0].id, developers);
-  } else {
-    developers.forEach(async (developer) => {
-      await developerQuery.addGameDeveloper(gameId[0].id, developer);
-    });
-  }
-  if (!Array.isArray(genres)) {
-    const genreId = await getGenreById(genres);
-    await addGameGenres(gameId[0].id, genreId[0].id);
-  } else {
-    genres.forEach(async (genre) => {
-      const genreId = await getGenreById(genre);
-      await addGameGenres(gameId[0].id, genreId[0].id);
-    });
-  }
+  await developerQuery.addGameDeveloper(gameId, developers);
+  await addGameGenres(gameId, genres);
 }
 
 async function updateGame(id, { title, year, price, genres }) {

@@ -18,7 +18,6 @@ async function createGameGet(req, res) {
 }
 
 async function createGamePost(req, res) {
-  console.log(req.body);
   const { title, year, price, genres, developers } = req.body;
   await db.insertGame({ title, year, price, genres, developers });
   res.redirect("/games");
