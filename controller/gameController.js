@@ -1,4 +1,5 @@
 const db = require("../db/gameQueries");
+const genreDb = require("../db/genreQueries");
 const developerDb = require("../db/developerQueries");
 
 async function getGames(req, res) {
@@ -13,7 +14,9 @@ async function createGameGet(req, res) {
     developers: (await developerDb.getAllDevelopers())
       .map((obj) => Object.values(obj))
       .flat(),
-    genres: (await db.getAllGenres()).map((obj) => Object.values(obj)).flat(),
+    genres: (await genreDb.getAllGenres())
+      .map((obj) => Object.values(obj))
+      .flat(),
   });
 }
 
@@ -30,8 +33,10 @@ async function gameUpdateGet(req, res) {
     developers: (await developerDb.getAllDevelopers())
       .map((obj) => Object.values(obj))
       .flat(),
-    genres: (await db.getAllGenres()).map((obj) => Object.values(obj)).flat(),
-    gamesGenre: (await db.getGameGenres(req.params.id))
+    genres: (await genreDb.getAllGenres())
+      .map((obj) => Object.values(obj))
+      .flat(),
+    gamesGenre: (await genreDb.getGameGenres(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
   });
