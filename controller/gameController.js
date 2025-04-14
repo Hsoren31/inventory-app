@@ -39,6 +39,9 @@ async function gameUpdateGet(req, res) {
     gamesGenre: (await genreDb.getGameGenres(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
+    gamesDeveloper: (await developerDb.getGameDevelopers(req.params.id))
+      .map((obj) => Object.values(obj))
+      .flat(),
   });
 }
 

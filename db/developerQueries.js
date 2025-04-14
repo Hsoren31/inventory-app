@@ -64,10 +64,19 @@ async function updateDeveloper(gameId, developers) {
   }
 }
 
+async function getGameDevelopers(gameId) {
+  const { rows } = await pool.query(
+    "SELECT developer FROM developers JOIN game_developers ON developers.id = developer_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
+    [gameId]
+  );
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getDeveloperId,
   insertDeveloper,
   addGameDeveloper,
   updateDeveloper,
+  getGameDevelopers,
 };
