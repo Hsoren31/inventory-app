@@ -8,6 +8,18 @@ async function getGames(req, res) {
   });
 }
 
+async function viewGame(req, res) {
+  res.render("viewGame", {
+    game: (await db.getGameById(req.params.id))[0],
+    developers: (await developerDb.getGameDevelopers(req.params.id))
+      .map((obj) => Object.values(obj))
+      .flat(),
+    genres: (await genreDb.getGameGenres(req.params.id))
+      .map((obj) => Object.values(obj))
+      .flat(),
+  });
+}
+
 async function createGameGet(req, res) {
   res.render("createGame", {
     title: "Create Game",
@@ -64,6 +76,7 @@ async function gameDeletePost(req, res) {
 
 module.exports = {
   getGames,
+  viewGame,
   createGameGet,
   createGamePost,
   gameUpdateGet,
