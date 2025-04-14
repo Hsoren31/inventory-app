@@ -31,7 +31,7 @@ async function insertGame({ title, year, price, genres, developers }) {
   await genreQuery.addGameGenres(gameId, genres);
 }
 
-async function updateGame(id, { title, year, price, genres }) {
+async function updateGame(id, { title, year, price, genres, developers }) {
   await pool.query(
     "UPDATE games SET title = ($1), year = ($2), price = ($3) WHERE id = ($4)",
     [title, year, price, id]
