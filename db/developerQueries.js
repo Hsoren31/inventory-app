@@ -1,27 +1,27 @@
 const pool = require("./pool");
 
-let getAllDevelopers = async () => {
+async function getAllDevelopers() {
   const { rows } = await pool.query(
     "SELECT developer FROM developers ORDER BY developer"
   );
   return rows;
-};
+}
 
-let getDeveloperId = async (developer) => {
+async function getDeveloperId(developer) {
   const { rows } = await pool.query(
     "SELECT id FROM developers WHERE developer = ($1)",
     [developer]
   );
   return rows[0].id;
-};
+}
 
-let insertDeveloper = async (developer) => {
+async function insertDeveloper(developer) {
   await pool.query("INSERT INTO developers (developer) VALUES ($1)", [
     developer,
   ]);
-};
+}
 
-let addGameDeveloper = async (gameId, developers) => {
+async function addGameDeveloper(gameId, developers) {
   if (!developers) {
     return;
   } else if (!Array.isArray(developers)) {
@@ -40,11 +40,22 @@ let addGameDeveloper = async (gameId, developers) => {
       ]);
     });
   }
-};
+}
+
+async function updateDeveloper(gameId, developers) {
+  await developers.forEach(async (developer) => {
+    await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [
+      gameId,
+    ]);
+    const developerId = await developerQuery.getDeveloperById(developer);
+    await addGameDeveloper(gameId, developerId);
+  });
+}
 
 module.exports = {
   getAllDevelopers,
   getDeveloperId,
   insertDeveloper,
   addGameDeveloper,
+  updateDeveloper,
 };
