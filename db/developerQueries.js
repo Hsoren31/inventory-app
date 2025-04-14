@@ -43,13 +43,25 @@ async function addGameDeveloper(gameId, developers) {
 }
 
 async function updateDeveloper(gameId, developers) {
-  await developers.forEach(async (developer) => {
+  if (!developers) {
     await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [
       gameId,
     ]);
-    const developerId = await developerQuery.getDeveloperById(developer);
-    await addGameDeveloper(gameId, developerId);
-  });
+    return;
+  } else if (!Array.isArray(developers)) {
+    await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [
+      gameId,
+    ]);
+    await addGameDeveloper(gameId, developers);
+    return;
+  } else {
+    await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [
+      gameId,
+    ]);
+    developers.forEach(async (developer) => {
+      await addGameDeveloper(gameId, developer);
+    });
+  }
 }
 
 module.exports = {
