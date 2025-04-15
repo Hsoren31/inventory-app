@@ -1,7 +1,7 @@
 const pool = require("./pool");
 
 async function getAllGenres() {
-  const { rows } = await pool.query("SELECT genre FROM genres ORDER BY genre");
+  const { rows } = await pool.query("SELECT * FROM genres ORDER BY genre");
   return rows;
 }
 
@@ -10,18 +10,34 @@ async function insertGenre(genre) {
   await pool.query("INSERT INTO genres (genre) VALUES ($1)", [genre]);
 }
 
+async function getGenreName(id) {
+  const { rows } = await pool.query(
+    "SELECT genre FROM genres WHERE id = ($1)",
+    [id]
+  );
+  return rows;
+}
+
 async function getGenreId(genre) {
   const { rows } = await pool.query(
     "SELECT id FROM genres WHERE genre = ($1)",
     [genre]
   );
-  return rows[0].id;
+  return rows;
 }
 
 async function getGameGenres(gameId) {
   const { rows } = await pool.query(
     "SELECT genre FROM genres JOIN game_genres ON genres.id = genre_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
     [gameId]
+  );
+  return rows;
+}
+
+async function getGenresGames(genreId) {
+  const { rows } = await pool.query(
+    "SELECT games.id, title FROM games JOIN game_genres ON games.id = game_id WHERE genre_id = ($1)",
+    [genreId]
   );
   return rows;
 }
@@ -67,7 +83,6 @@ async function getTopGenres() {
   const { rows } = await pool.query(
     "SELECT id, genre FROM genres JOIN game_genres ON genres.id = genre_id GROUP BY genres.id ORDER BY COUNT(genre_id) DESC LIMIT 5"
   );
-  console.log(rows);
   return rows;
 }
 
@@ -75,6 +90,8 @@ module.exports = {
   getAllGenres,
   addGameGenres,
   getGameGenres,
+  getGenresGames,
+  getGenreName,
   insertGenre,
   updateGenres,
   getTopGenres,

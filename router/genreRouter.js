@@ -3,6 +3,7 @@ const genreController = require("../controller/genreController");
 const genreRouter = Router();
 
 genreRouter.get("/", genreController.getGenres);
+genreRouter.get("/:id", genreController.viewGenreGames);
 
 genreRouter.get("/create", genreController.createGenreGet);
 genreRouter.post("/create", genreController.createGenrePost);

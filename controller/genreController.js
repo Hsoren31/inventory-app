@@ -7,6 +7,14 @@ exports.getGenres = async (req, res) => {
   });
 };
 
+exports.viewGenreGames = async (req, res) => {
+  const genre = await db.getGenreName(req.params.id);
+  res.render("viewGenre", {
+    genre: genre[0].genre,
+    games: await db.getGenresGames(req.params.id),
+  });
+};
+
 exports.createGenreGet = async (req, res) => {
   res.render("createGenre", { title: "Create Genre" });
 };
