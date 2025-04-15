@@ -63,10 +63,19 @@ async function updateGenres(gameId, genres) {
   }
 }
 
+async function getTopGenres() {
+  const { rows } = await pool.query(
+    "SELECT id, genre FROM genres JOIN game_genres ON genres.id = genre_id GROUP BY genres.id ORDER BY COUNT(genre_id) DESC LIMIT 5"
+  );
+  console.log(rows);
+  return rows;
+}
+
 module.exports = {
   getAllGenres,
   addGameGenres,
   getGameGenres,
   insertGenre,
   updateGenres,
+  getTopGenres,
 };
