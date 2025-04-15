@@ -6,6 +6,7 @@
     <title><%= game.title %></title>
   </head>
   <body>
+    <%- include("partials/navbar.ejs") %>
     <h1><%= game.title %></h1>
     <ul>
       <li>Release Year: <%= game.year %></li>
@@ -13,8 +14,9 @@
       <h2>Developers:</h2>
       <% developers.forEach((developer) => {%>
       <li><%=developer.charAt(0).toUpperCase() + developer.slice(1)%></li>
+      <%})%>
       <h2>Genres:</h2>
-      <%})%> <% genres.forEach((genre) => { %>
+      <% genres.forEach((genre) => { %>
       <li><%= genre.charAt(0).toUpperCase() + genre.slice(1)%></li>
       <%})%>
     </ul>
