@@ -3,9 +3,7 @@ const developerDb = require("../db/developerQueries");
 getDevelopers = async (req, res) => {
   res.render("developers", {
     title: "Developers",
-    developers: (await developerDb.getAllDevelopers())
-      .map((obj) => Object.values(obj))
-      .flat(),
+    developers: await developerDb.getAllDevelopers(),
   });
 };
 
@@ -21,8 +19,18 @@ createDeveloperPost = async (req, res) => {
   res.redirect("/developers");
 };
 
+async function viewDeveloper(req, res) {
+  const developer = (await developerDb.getDeveloperById(req.params.id))[0];
+  res.render("viewDeveloper", {
+    title: developer,
+    developer: developer,
+    developerGames: await developerDb.getDevelopersGames(req.params.id),
+  });
+}
+
 module.exports = {
   getDevelopers,
   createDeveloperGet,
   createDeveloperPost,
+  viewDeveloper,
 };

@@ -10,7 +10,10 @@
     <h1><%= title %></h1>
     <ul>
       <% developers.map((developer) => { %>
-      <li><%= developer.charAt(0).toUpperCase() + developer.slice(1) %></li>
+      <a href="/developers/<%= developer.id %>">
+        <%= developer.developer.charAt(0).toUpperCase() +
+        developer.developer.slice(1) %></a
+      >
       <% }) %>
     </ul>
     <a href="/developers/create">Add Developer</a>

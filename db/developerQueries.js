@@ -2,7 +2,22 @@ const pool = require("./pool");
 
 async function getAllDevelopers() {
   const { rows } = await pool.query(
+    "SELECT * FROM developers ORDER BY developer"
+  );
+  return rows;
+}
+
+async function getDevelopersNames() {
+  const { rows } = await pool.query(
     "SELECT developer FROM developers ORDER BY developer"
+  );
+  return rows;
+}
+
+async function getDeveloperById(id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM developers WHERE id = ($1)",
+    [id]
   );
   return rows;
 }
@@ -72,11 +87,22 @@ async function getGameDevelopers(gameId) {
   return rows;
 }
 
+async function getDevelopersGames(developerId) {
+  const { rows } = await pool.query(
+    "SELECT games.id, title FROM games JOIN game_developers ON games.id = game_id JOIN developers ON developer_id = developers.id WHERE developers.id = ($1) ORDER BY title",
+    [developerId]
+  );
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
+  getDevelopersNames,
+  getDeveloperById,
   getDeveloperId,
   insertDeveloper,
   addGameDeveloper,
   updateDeveloper,
   getGameDevelopers,
+  getDevelopersGames,
 };
