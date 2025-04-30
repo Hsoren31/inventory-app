@@ -6,6 +6,7 @@
     <title><%= genre.charAt(0).toUpperCase() + genre.slice(1) %> Games</title>
   </head>
   <body>
+    <%- include("partials/navbar.ejs") %>
     <h1><%= genre.charAt(0).toUpperCase() + genre.slice(1) %> Games</h1>
     <ul>
       <% games.map((game) => { %>
