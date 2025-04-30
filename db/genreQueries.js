@@ -1,7 +1,7 @@
 const pool = require("./pool");
 
 async function getAllGenres() {
-  const { rows } = await pool.query("SELECT * FROM genres ORDER BY genre");
+  const { rows } = await pool.query("SELECT genre FROM genres ORDER BY genre");
   return rows;
 }
 
