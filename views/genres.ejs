@@ -10,11 +10,9 @@
     <h1><%= title %></h1>
     <ul>
       <% genres.map((genre) => { %>
-      <li>
-        <a href="/genres/<%= genre.id%>"
-          ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1) %></a
-        >
-      </li>
+      <a href="/genres/<%= genre.id%>"
+        ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1) %></a
+      >
       <%}) %>
     </ul>
     <a href="/genres/create">Create Genre</a>

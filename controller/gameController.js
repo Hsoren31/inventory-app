@@ -26,7 +26,7 @@ async function createGameGet(req, res) {
     developers: (await developerDb.getAllDevelopers())
       .map((obj) => Object.values(obj))
       .flat(),
-    genres: (await genreDb.getAllGenres())
+    genres: (await genreDb.getAllGenreNames())
       .map((obj) => Object.values(obj))
       .flat(),
   });
@@ -45,7 +45,7 @@ async function gameUpdateGet(req, res) {
     developers: (await developerDb.getAllDevelopers())
       .map((obj) => Object.values(obj))
       .flat(),
-    genres: (await genreDb.getAllGenres())
+    genres: (await genreDb.getAllGenreNames())
       .map((obj) => Object.values(obj))
       .flat(),
     gamesGenre: (await genreDb.getGameGenres(req.params.id))

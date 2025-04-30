@@ -1,6 +1,11 @@
 const pool = require("./pool");
 
 async function getAllGenres() {
+  const { rows } = await pool.query("SELECT * FROM genres ORDER BY genre");
+  return rows;
+}
+
+async function getAllGenreNames() {
   const { rows } = await pool.query("SELECT genre FROM genres ORDER BY genre");
   return rows;
 }
@@ -23,7 +28,7 @@ async function getGenreId(genre) {
     "SELECT id FROM genres WHERE genre = ($1)",
     [genre]
   );
-  return rows;
+  return rows[0].id;
 }
 
 async function getGameGenres(gameId) {
@@ -88,6 +93,7 @@ async function getTopGenres() {
 
 module.exports = {
   getAllGenres,
+  getAllGenreNames,
   addGameGenres,
   getGameGenres,
   getGenresGames,
