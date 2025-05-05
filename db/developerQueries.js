@@ -95,6 +95,13 @@ async function getDevelopersGames(developerId) {
   return rows;
 }
 
+async function updateDeveloper(developerId, developerName) {
+  await pool.query("UPDATE developers SET developer = ($1) WHERE id = ($2)", [
+    developerName,
+    developerId,
+  ]);
+}
+
 module.exports = {
   getAllDevelopers,
   getDevelopersNames,
@@ -105,4 +112,5 @@ module.exports = {
   updateDeveloper,
   getGameDevelopers,
   getDevelopersGames,
+  updateDeveloper,
 };

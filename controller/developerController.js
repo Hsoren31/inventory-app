@@ -28,9 +28,25 @@ async function viewDeveloper(req, res) {
   });
 }
 
+async function updateDeveloperGet(req, res) {
+  const developer = (await developerDb.getDeveloperById(req.params.id))[0];
+  res.render("updateDeveloper", {
+    title: developer,
+    developer: developer,
+  });
+}
+
+async function updateDeveloperPost(req, res) {
+  const { developer } = req.body;
+  await developerDb.updateDeveloper(req.params.id, developer);
+  res.redirect("/developers/" + req.params.id);
+}
+
 module.exports = {
   getDevelopers,
   createDeveloperGet,
   createDeveloperPost,
   viewDeveloper,
+  updateDeveloperGet,
+  updateDeveloperPost,
 };

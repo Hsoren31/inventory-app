@@ -9,4 +9,7 @@ developerRouter.post("/create", developerController.createDeveloperPost);
 
 developerRouter.get("/:id", developerController.viewDeveloper);
 
+developerRouter.get("/:id/update", developerController.updateDeveloperGet);
+developerRouter.post("/:id/update", developerController.updateDeveloperPost);
+
 module.exports = developerRouter;

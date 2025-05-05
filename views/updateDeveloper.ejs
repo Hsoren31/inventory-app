@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title.developer %></title>
+  </head>
+  <body>
+    <h1><%= title.developer %></h1>
+    <form action="/developers/<%= developer.id %>/update" method="post">
+      <label for="developer">Developer Name: </label>
+      <input
+        type="text"
+        name="developer"
+        id="developer"
+        value="<%= developer.developer %>"
+      />
+      <button type="submit">Update Developer</button>
+    </form>
+  </body>
+</html>
