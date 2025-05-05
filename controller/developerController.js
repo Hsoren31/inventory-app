@@ -1,58 +1,48 @@
-const developerDb = require("../db/developerQueries");
+const db = require("../db/developerQueries");
 
-getDevelopers = async (req, res) => {
+exports.getDevelopers = async (req, res) => {
   res.render("developers", {
     title: "Developers",
-    developers: await developerDb.getAllDevelopers(),
+    developers: await db.getAllDevelopers(),
   });
 };
 
-createDeveloperGet = async (req, res) => {
+exports.createDeveloperGet = async (req, res) => {
   res.render("createDevelopers", {
-    title: "Create Developers",
+    title: "Create Developer",
   });
 };
 
-createDeveloperPost = async (req, res) => {
+exports.createDeveloperPost = async (req, res) => {
   const { developer } = req.body;
-  await developerDb.insertDeveloper(developer.toLowerCase());
+  await db.insertDeveloper(developer);
   res.redirect("/developers");
 };
 
-async function viewDeveloper(req, res) {
-  const developer = (await developerDb.getDeveloperById(req.params.id))[0];
+exports.viewDeveloper = async (req, res) => {
+  const developer = (await db.getDeveloperById(req.params.id))[0];
   res.render("viewDeveloper", {
-    title: developer,
+    title: developer.developer,
     developer: developer,
-    developerGames: await developerDb.getDevelopersGames(req.params.id),
+    developerGames: await db.getDevelopersGames(req.params.id),
   });
-}
+};
 
-async function updateDeveloperGet(req, res) {
-  const developer = (await developerDb.getDeveloperById(req.params.id))[0];
+exports.updateDeveloperGet = async (req, res) => {
+  const developer = (await db.getDeveloperById(req.params.id))[0];
   res.render("updateDeveloper", {
-    title: developer,
+    title: developer.developer,
     developer: developer,
   });
-}
+};
 
-async function updateDeveloperPost(req, res) {
+exports.updateDeveloperPost = async (req, res) => {
   const { developer } = req.body;
-  await developerDb.updateDeveloper(req.params.id, developer);
+  await db.updateDeveloper(req.params.id, developer);
   res.redirect("/developers/" + req.params.id);
-}
+};
 
-async function deleteDeveloper(req, res) {
-  await developerDb.deleteDeveloper(req.params.id);
+exports.deleteDeveloper = async (req, res) => {
+  await db.deleteDeveloper(req.params.id);
   res.redirect("/developers");
-}
-
-module.exports = {
-  getDevelopers,
-  createDeveloperGet,
-  createDeveloperPost,
-  viewDeveloper,
-  updateDeveloperGet,
-  updateDeveloperPost,
-  deleteDeveloper,
 };
