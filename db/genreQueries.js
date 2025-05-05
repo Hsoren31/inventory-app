@@ -105,6 +105,11 @@ async function updateGenre(genreId, genreName) {
   ]);
 }
 
+async function deleteGenre(genreId) {
+  await pool.query("DELETE FROM game_genres WHERE genre_id = ($1)", [genreId]);
+  await pool.query("DELETE FROM genres WHERE id = ($1)", [genreId]);
+}
+
 module.exports = {
   getAllGenres,
   getAllGenreNames,
@@ -117,4 +122,5 @@ module.exports = {
   getTopGenres,
   updateGenre,
   getGenreById,
+  deleteGenre,
 };

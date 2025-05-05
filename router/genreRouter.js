@@ -12,4 +12,6 @@ genreRouter.get("/:id", genreController.viewGenreGames);
 genreRouter.get("/:id/update", genreController.updateGenreGet);
 genreRouter.post("/:id/update", genreController.updateGenrePost);
 
+genreRouter.post("/:id/delete", genreController.deleteGenre);
+
 module.exports = genreRouter;
