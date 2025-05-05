@@ -109,6 +109,13 @@ async function deleteDeveloper(developerId) {
   await pool.query("DELETE FROM developers WHERE id = ($1)", [developerId]);
 }
 
+async function getPopularDevelopers() {
+  const { rows } = await pool.query(
+    "SELECT id, developer FROM developers JOIN game_developers ON developers.id = developer_id GROUP BY developers.id ORDER BY COUNT(developer_id) DESC LIMIT 5"
+  );
+  return rows;
+}
+
 module.exports = {
   getAllDevelopers,
   getDevelopersNames,
@@ -121,4 +128,5 @@ module.exports = {
   getDevelopersGames,
   updateDeveloper,
   deleteDeveloper,
+  getPopularDevelopers,
 };

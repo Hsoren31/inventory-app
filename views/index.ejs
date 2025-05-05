@@ -16,5 +16,15 @@
       <%})%>
       <a href="/genres">View All Genres</a>
     </ul>
+    <h2>Popular Developers:</h2>
+    <ul>
+      <% topDevelopers.map((developer) => { %>
+      <a href="/developers/<%= developer.id %>"
+        ><%= developer.developer.charAt(0).toUpperCase() +
+        developer.developer.slice(1) %></a
+      >
+      <%})%>
+      <a href="/developers">View All Developers</a>
+    </ul>
   </body>
 </html>
