@@ -6,6 +6,8 @@ const path = require("node:path");
 const gameRouter = require("./router/gameRouter");
 const genreRouter = require("./router/genreRouter");
 const developerRouter = require("./router/developerRouter");
+
+const gameDb = require("./db/gameQueries");
 const genreDb = require("./db/genreQueries");
 const developerDb = require("./db/developerQueries");
 
@@ -21,6 +23,7 @@ app.get("/", async (req, res) =>
   res.render("index", {
     topGenres: await genreDb.getTopGenres(),
     topDevelopers: await developerDb.getPopularDevelopers(),
+    newestGames: await gameDb.getNewestGames(),
   })
 );
 

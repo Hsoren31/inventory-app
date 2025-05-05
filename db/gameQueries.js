@@ -49,10 +49,18 @@ async function deleteGame(id) {
   await pool.query("DELETE FROM games WHERE id = ($1)", [id]);
 }
 
+async function getNewestGames() {
+  const { rows } = await pool.query(
+    "SELECT * FROM games ORDER BY year DESC LIMIT 5"
+  );
+  return rows;
+}
+
 module.exports = {
   getAllGames,
   insertGame,
   getGameById,
   updateGame,
   deleteGame,
+  getNewestGames,
 };

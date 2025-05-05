@@ -26,5 +26,14 @@
       <%})%>
       <a href="/developers">View All Developers</a>
     </ul>
+    <h2>Newest Games:</h2>
+    <ul>
+      <% newestGames.map((game) => { %>
+      <a href="/games/<%= game.id %>"
+        ><%= game.title.charAt(0).toUpperCase() + game.title.slice(1) %></a
+      >
+      <%})%>
+      <a href="/games">View All Games</a>
+    </ul>
   </body>
 </html>
