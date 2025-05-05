@@ -23,11 +23,11 @@
             type="checkbox"
             name="developers"
             id="<%= developer %>"
-            value="<%= developer %>"
+            value="<%= developer.id%>"
           />
           <label for="developers"
-            ><%= developer.charAt(0).toUpperCase() + developer.slice(1)
-            %></label
+            ><%= developer.developer.charAt(0).toUpperCase() +
+            developer.developer.slice(1) %></label
           >
         </div>
         <% }) %>

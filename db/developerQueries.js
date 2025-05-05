@@ -7,9 +7,9 @@ async function getAllDevelopers() {
   return rows;
 }
 
-async function getDevelopersNames() {
+async function getPopularDevelopers() {
   const { rows } = await pool.query(
-    "SELECT developer FROM developers ORDER BY developer"
+    "SELECT id, developer FROM developers JOIN game_developers ON developers.id = developer_id GROUP BY developers.id ORDER BY COUNT(developer_id) DESC LIMIT 5"
   );
   return rows;
 }
@@ -22,15 +22,24 @@ async function getDeveloperById(id) {
   return rows;
 }
 
-async function getDeveloperId(developer) {
+async function getGamesDevelopers(gameId) {
   const { rows } = await pool.query(
-    "SELECT id FROM developers WHERE developer = ($1)",
-    [developer]
+    "SELECT developer FROM developers JOIN game_developers ON developers.id = developer_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
+    [gameId]
   );
-  return rows[0].id;
+  return rows;
+}
+
+async function getDevelopersGames(developerId) {
+  const { rows } = await pool.query(
+    "SELECT games.id, title FROM games JOIN game_developers ON games.id = game_id JOIN developers ON developer_id = developers.id WHERE developers.id = ($1) ORDER BY title",
+    [developerId]
+  );
+  return rows;
 }
 
 async function insertDeveloper(developer) {
+  developer = developer.toLowerCase();
   await pool.query("INSERT INTO developers (developer) VALUES ($1)", [
     developer,
   ]);
@@ -40,24 +49,22 @@ async function addGameDeveloper(gameId, developers) {
   if (!developers) {
     return;
   } else if (!Array.isArray(developers)) {
-    const developerId = await getDeveloperId(developers);
     await pool.query("INSERT INTO game_developers VALUES ($1, $2)", [
       gameId,
-      developerId,
+      developers,
     ]);
     return;
   } else {
     developers.map(async (developer) => {
-      const developerId = await getDeveloperId(developer);
       await pool.query("INSERT INTO game_developers VALUES ($1, $2)", [
         gameId,
-        developerId,
+        developer,
       ]);
     });
   }
 }
 
-async function updateDeveloper(gameId, developers) {
+async function updateGamesDevelopers(gameId, developers) {
   if (!developers) {
     await pool.query("DELETE FROM game_developers WHERE game_id = ($1)", [
       gameId,
@@ -79,22 +86,6 @@ async function updateDeveloper(gameId, developers) {
   }
 }
 
-async function getGameDevelopers(gameId) {
-  const { rows } = await pool.query(
-    "SELECT developer FROM developers JOIN game_developers ON developers.id = developer_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
-    [gameId]
-  );
-  return rows;
-}
-
-async function getDevelopersGames(developerId) {
-  const { rows } = await pool.query(
-    "SELECT games.id, title FROM games JOIN game_developers ON games.id = game_id JOIN developers ON developer_id = developers.id WHERE developers.id = ($1) ORDER BY title",
-    [developerId]
-  );
-  return rows;
-}
-
 async function updateDeveloper(developerId, developerName) {
   await pool.query("UPDATE developers SET developer = ($1) WHERE id = ($2)", [
     developerName,
@@ -109,22 +100,13 @@ async function deleteDeveloper(developerId) {
   await pool.query("DELETE FROM developers WHERE id = ($1)", [developerId]);
 }
 
-async function getPopularDevelopers() {
-  const { rows } = await pool.query(
-    "SELECT id, developer FROM developers JOIN game_developers ON developers.id = developer_id GROUP BY developers.id ORDER BY COUNT(developer_id) DESC LIMIT 5"
-  );
-  return rows;
-}
-
 module.exports = {
   getAllDevelopers,
-  getDevelopersNames,
   getDeveloperById,
-  getDeveloperId,
   insertDeveloper,
   addGameDeveloper,
-  updateDeveloper,
-  getGameDevelopers,
+  updateGamesDevelopers,
+  getGamesDevelopers,
   getDevelopersGames,
   updateDeveloper,
   deleteDeveloper,

@@ -38,11 +38,11 @@
         <% developers.forEach(developer => { %>
         <div>
           <input type="checkbox" name="developers" id="<%= developer %>"
-          value="<%= developer %>" <%= gamesDeveloper.includes(developer) ?
-          "checked" : "" %> />
+          value="<%= developer.id %>" <%=
+          gamesDeveloper.includes(developer.developer) ? "checked" : "" %> />
           <label for="developers"
-            ><%= developer.charAt(0).toUpperCase() + developer.slice(1)
-            %></label
+            ><%= developer.developer.charAt(0).toUpperCase() +
+            developer.developer.slice(1) %></label
           >
         </div>
         <% }) %>

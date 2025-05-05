@@ -11,7 +11,7 @@ async function getGames(req, res) {
 async function viewGame(req, res) {
   res.render("viewGame", {
     game: (await db.getGameById(req.params.id))[0],
-    developers: (await developerDb.getGameDevelopers(req.params.id))
+    developers: (await developerDb.getGamesDevelopers(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
     genres: (await genreDb.getGameGenres(req.params.id))
@@ -23,9 +23,7 @@ async function viewGame(req, res) {
 async function createGameGet(req, res) {
   res.render("createGame", {
     title: "Create Game",
-    developers: (await developerDb.getAllDevelopers())
-      .map((obj) => Object.values(obj))
-      .flat(),
+    developers: await developerDb.getAllDevelopers(),
     genres: (await genreDb.getAllGenreNames())
       .map((obj) => Object.values(obj))
       .flat(),
@@ -42,16 +40,14 @@ async function gameUpdateGet(req, res) {
   res.render("updateGame", {
     title: "Update Game",
     game: (await db.getGameById(req.params.id))[0],
-    developers: (await developerDb.getAllDevelopers())
-      .map((obj) => Object.values(obj))
-      .flat(),
+    developers: await developerDb.getAllDevelopers(),
     genres: (await genreDb.getAllGenreNames())
       .map((obj) => Object.values(obj))
       .flat(),
     gamesGenre: (await genreDb.getGameGenres(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
-    gamesDeveloper: (await developerDb.getGameDevelopers(req.params.id))
+    gamesDeveloper: (await developerDb.getGamesDevelopers(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
   });

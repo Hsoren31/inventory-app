@@ -36,10 +36,7 @@ async function updateGame(id, { title, year, price, genres, developers }) {
     "UPDATE games SET title = ($1), year = ($2), price = ($3) WHERE id = ($4)",
     [title, year, price, id]
   );
-  if (!genres && !developers) {
-    return;
-  }
-  await developerQuery.updateDeveloper(id, developers);
+  await developerQuery.updateGamesDevelopers(id, developers);
   await genreQuery.updateGenres(id, genres);
 }
 
