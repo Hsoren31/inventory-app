@@ -2,39 +2,35 @@ const db = require("../db/gameQueries");
 const genreDb = require("../db/genreQueries");
 const developerDb = require("../db/developerQueries");
 
-async function getGames(req, res) {
+exports.getGames = async (req, res) => {
   res.render("games", {
     games: await db.getAllGames(),
   });
-}
+};
 
-async function viewGame(req, res) {
+exports.viewGame = async (req, res) => {
   res.render("viewGame", {
     game: (await db.getGameById(req.params.id))[0],
-    developers: (await developerDb.getGamesDevelopers(req.params.id))
-      .map((obj) => Object.values(obj))
-      .flat(),
-    genres: (await genreDb.getGamesGenres(req.params.id))
-      .map((obj) => Object.values(obj))
-      .flat(),
+    developers: await developerDb.getGamesDevelopers(req.params.id),
+    genres: await genreDb.getGamesGenres(req.params.id),
   });
-}
+};
 
-async function createGameGet(req, res) {
+exports.createGameGet = async (req, res) => {
   res.render("createGame", {
     title: "Create Game",
     developers: await developerDb.getAllDevelopers(),
     genres: await genreDb.getAllGenres(),
   });
-}
+};
 
-async function createGamePost(req, res) {
+exports.createGamePost = async (req, res) => {
   const { title, year, price, genres, developers } = req.body;
   await db.insertGame({ title, year, price, genres, developers });
   res.redirect("/games");
-}
+};
 
-async function gameUpdateGet(req, res) {
+exports.gameUpdateGet = async (req, res) => {
   res.render("updateGame", {
     title: "Update Game",
     game: (await db.getGameById(req.params.id))[0],
@@ -47,9 +43,9 @@ async function gameUpdateGet(req, res) {
       .map((obj) => Object.values(obj))
       .flat(),
   });
-}
+};
 
-async function gameUpdatePost(req, res) {
+exports.gameUpdatePost = async (req, res) => {
   const { title, year, price, genres, developers } = req.body;
   await db.updateGame(req.params.id, {
     title,
@@ -58,20 +54,10 @@ async function gameUpdatePost(req, res) {
     genres,
     developers,
   });
-  res.redirect("/games");
-}
+  res.redirect("/games/" + req.params.id);
+};
 
-async function gameDeletePost(req, res) {
+exports.deleteGame = async (req, res) => {
   await db.deleteGame(req.params.id);
   res.redirect("/games");
-}
-
-module.exports = {
-  getGames,
-  viewGame,
-  createGameGet,
-  createGamePost,
-  gameUpdateGet,
-  gameUpdatePost,
-  gameDeletePost,
 };

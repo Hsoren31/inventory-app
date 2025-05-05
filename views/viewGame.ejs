@@ -13,11 +13,14 @@
       <li>Price: $<%= game.price %></li>
       <h2>Developers:</h2>
       <% developers.forEach((developer) => {%>
-      <li><%=developer.charAt(0).toUpperCase() + developer.slice(1)%></li>
+      <li>
+        <%=developer.developer.charAt(0).toUpperCase() +
+        developer.developer.slice(1)%>
+      </li>
       <%})%>
       <h2>Genres:</h2>
       <% genres.forEach((genre) => { %>
-      <li><%= genre.charAt(0).toUpperCase() + genre.slice(1)%></li>
+      <li><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)%></li>
       <%})%>
     </ul>
 
