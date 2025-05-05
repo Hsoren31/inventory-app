@@ -102,6 +102,13 @@ async function updateDeveloper(developerId, developerName) {
   ]);
 }
 
+async function deleteDeveloper(developerId) {
+  await pool.query("DELETE FROM game_developers WHERE developer_id = ($1)", [
+    developerId,
+  ]);
+  await pool.query("DELETE FROM developers WHERE id = ($1)", [developerId]);
+}
+
 module.exports = {
   getAllDevelopers,
   getDevelopersNames,
@@ -113,4 +120,5 @@ module.exports = {
   getGameDevelopers,
   getDevelopersGames,
   updateDeveloper,
+  deleteDeveloper,
 };

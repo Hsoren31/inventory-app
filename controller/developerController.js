@@ -42,6 +42,11 @@ async function updateDeveloperPost(req, res) {
   res.redirect("/developers/" + req.params.id);
 }
 
+async function deleteDeveloper(req, res) {
+  await developerDb.deleteDeveloper(req.params.id);
+  res.redirect("/developers");
+}
+
 module.exports = {
   getDevelopers,
   createDeveloperGet,
@@ -49,4 +54,5 @@ module.exports = {
   viewDeveloper,
   updateDeveloperGet,
   updateDeveloperPost,
+  deleteDeveloper,
 };
