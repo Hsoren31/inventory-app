@@ -8,9 +8,9 @@ exports.getGenres = async (req, res) => {
 };
 
 exports.viewGenreGames = async (req, res) => {
-  const genre = await db.getGenreName(req.params.id);
+  const genre = await db.getGenreById(req.params.id);
   res.render("viewGenre", {
-    genre: genre[0].genre,
+    genre: genre,
     games: await db.getGenresGames(req.params.id),
   });
 };
@@ -23,4 +23,17 @@ exports.createGenrePost = async (req, res) => {
   const { genreName } = req.body;
   await db.insertGenre(genreName);
   res.redirect("/genres");
+};
+
+exports.updateGenreGet = async (req, res) => {
+  res.render("updateGenre", {
+    title: "Update Genre",
+    genre: await db.getGenreById(req.params.id),
+  });
+};
+
+exports.updateGenrePost = async (req, res) => {
+  const { genreName } = req.body;
+  await db.updateGenre(req.params.id, genreName);
+  res.redirect("/genres/" + req.params.id);
 };

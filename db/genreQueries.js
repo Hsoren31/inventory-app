@@ -10,6 +10,13 @@ async function getAllGenreNames() {
   return rows;
 }
 
+async function getGenreById(id) {
+  const { rows } = await pool.query("SELECT * FROM genres WHERE id = ($1)", [
+    id,
+  ]);
+  return rows[0];
+}
+
 async function insertGenre(genre) {
   genre = genre.toLowerCase();
   await pool.query("INSERT INTO genres (genre) VALUES ($1)", [genre]);
@@ -91,6 +98,13 @@ async function getTopGenres() {
   return rows;
 }
 
+async function updateGenre(genreId, genreName) {
+  await pool.query("UPDATE genres SET genre = ($1) WHERE id = ($2)", [
+    genreName,
+    genreId,
+  ]);
+}
+
 module.exports = {
   getAllGenres,
   getAllGenreNames,
@@ -101,4 +115,6 @@ module.exports = {
   insertGenre,
   updateGenres,
   getTopGenres,
+  updateGenre,
+  getGenreById,
 };

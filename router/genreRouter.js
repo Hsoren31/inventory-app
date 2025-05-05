@@ -9,4 +9,7 @@ genreRouter.post("/create", genreController.createGenrePost);
 
 genreRouter.get("/:id", genreController.viewGenreGames);
 
+genreRouter.get("/:id/update", genreController.updateGenreGet);
+genreRouter.post("/:id/update", genreController.updateGenrePost);
+
 module.exports = genreRouter;
