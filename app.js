@@ -21,7 +21,7 @@ app.use("/genres", genreRouter);
 app.use("/developers", developerRouter);
 app.get("/", async (req, res) =>
   res.render("index", {
-    topGenres: await genreDb.getTopGenres(),
+    topGenres: await genreDb.getPopularGenres(),
     topDevelopers: await developerDb.getPopularDevelopers(),
     newestGames: await gameDb.getNewestGames(),
   })

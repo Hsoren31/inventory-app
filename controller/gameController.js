@@ -14,7 +14,7 @@ async function viewGame(req, res) {
     developers: (await developerDb.getGamesDevelopers(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
-    genres: (await genreDb.getGameGenres(req.params.id))
+    genres: (await genreDb.getGamesGenres(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
   });
@@ -24,9 +24,7 @@ async function createGameGet(req, res) {
   res.render("createGame", {
     title: "Create Game",
     developers: await developerDb.getAllDevelopers(),
-    genres: (await genreDb.getAllGenreNames())
-      .map((obj) => Object.values(obj))
-      .flat(),
+    genres: await genreDb.getAllGenres(),
   });
 }
 
@@ -41,10 +39,8 @@ async function gameUpdateGet(req, res) {
     title: "Update Game",
     game: (await db.getGameById(req.params.id))[0],
     developers: await developerDb.getAllDevelopers(),
-    genres: (await genreDb.getAllGenreNames())
-      .map((obj) => Object.values(obj))
-      .flat(),
-    gamesGenre: (await genreDb.getGameGenres(req.params.id))
+    genres: await genreDb.getAllGenres(),
+    gamesGenre: (await genreDb.getGamesGenres(req.params.id))
       .map((obj) => Object.values(obj))
       .flat(),
     gamesDeveloper: (await developerDb.getGamesDevelopers(req.params.id))

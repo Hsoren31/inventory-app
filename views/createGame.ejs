@@ -39,11 +39,12 @@
           <input
             type="checkbox"
             name="genres"
-            id="<%= genre %>"
-            value="<%= genre %>"
+            id="<%= genre.id %>"
+            value="<%= genre.id %>"
           />
           <label for="genres"
-            ><%= genre.charAt(0).toUpperCase() + genre.slice(1) %></label
+            ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
+            %></label
           >
         </div>
         <% }) %>

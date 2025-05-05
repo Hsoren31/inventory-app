@@ -28,7 +28,7 @@ async function insertGame({ title, year, price, genres, developers }) {
   );
   const gameId = await getGameId(title);
   await developerQuery.addGameDeveloper(gameId, developers);
-  await genreQuery.addGameGenres(gameId, genres);
+  await genreQuery.addGamesGenres(gameId, genres);
 }
 
 async function updateGame(id, { title, year, price, genres, developers }) {
@@ -37,7 +37,7 @@ async function updateGame(id, { title, year, price, genres, developers }) {
     [title, year, price, id]
   );
   await developerQuery.updateGamesDevelopers(id, developers);
-  await genreQuery.updateGenres(id, genres);
+  await genreQuery.updateGamesGenres(id, genres);
 }
 
 async function deleteGame(id) {

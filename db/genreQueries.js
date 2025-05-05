@@ -5,8 +5,10 @@ async function getAllGenres() {
   return rows;
 }
 
-async function getAllGenreNames() {
-  const { rows } = await pool.query("SELECT genre FROM genres ORDER BY genre");
+async function getPopularGenres() {
+  const { rows } = await pool.query(
+    "SELECT id, genre FROM genres JOIN game_genres ON genres.id = genre_id GROUP BY genres.id ORDER BY COUNT(genre_id) DESC LIMIT 5"
+  );
   return rows;
 }
 
@@ -17,28 +19,7 @@ async function getGenreById(id) {
   return rows[0];
 }
 
-async function insertGenre(genre) {
-  genre = genre.toLowerCase();
-  await pool.query("INSERT INTO genres (genre) VALUES ($1)", [genre]);
-}
-
-async function getGenreName(id) {
-  const { rows } = await pool.query(
-    "SELECT genre FROM genres WHERE id = ($1)",
-    [id]
-  );
-  return rows;
-}
-
-async function getGenreId(genre) {
-  const { rows } = await pool.query(
-    "SELECT id FROM genres WHERE genre = ($1)",
-    [genre]
-  );
-  return rows[0].id;
-}
-
-async function getGameGenres(gameId) {
+async function getGamesGenres(gameId) {
   const { rows } = await pool.query(
     "SELECT genre FROM genres JOIN game_genres ON genres.id = genre_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
     [gameId]
@@ -54,48 +35,44 @@ async function getGenresGames(genreId) {
   return rows;
 }
 
-async function addGameGenres(gameId, genres) {
+async function insertGenre(genre) {
+  genre = genre.toLowerCase();
+  await pool.query("INSERT INTO genres (genre) VALUES ($1)", [genre]);
+}
+
+async function addGamesGenres(gameId, genres) {
   if (!genres) {
     return;
   } else if (!Array.isArray(genres)) {
-    const genreId = await getGenreId(genres);
     await pool.query("INSERT INTO game_genres VALUES ($1, $2)", [
       gameId,
-      genreId,
+      genres,
     ]);
     return;
   } else {
     genres.map(async (genre) => {
-      const genreId = await getGenreId(genre);
       await pool.query("INSERT INTO game_genres VALUES ($1, $2)", [
         gameId,
-        genreId,
+        genre,
       ]);
     });
   }
 }
 
-async function updateGenres(gameId, genres) {
+async function updateGamesGenres(gameId, genres) {
   if (!genres) {
     await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
     return;
   } else if (!Array.isArray(genres)) {
     await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
-    await addGameGenres(gameId, genres);
+    await addGamesGenres(gameId, genres);
     return;
   } else {
     await pool.query("DELETE FROM game_genres WHERE game_id = ($1)", [gameId]);
     genres.forEach(async (genre) => {
-      await addGameGenres(gameId, genre);
+      await addGamesGenres(gameId, genre);
     });
   }
-}
-
-async function getTopGenres() {
-  const { rows } = await pool.query(
-    "SELECT id, genre FROM genres JOIN game_genres ON genres.id = genre_id GROUP BY genres.id ORDER BY COUNT(genre_id) DESC LIMIT 5"
-  );
-  return rows;
 }
 
 async function updateGenre(genreId, genreName) {
@@ -112,15 +89,13 @@ async function deleteGenre(genreId) {
 
 module.exports = {
   getAllGenres,
-  getAllGenreNames,
-  addGameGenres,
-  getGameGenres,
-  getGenresGames,
-  getGenreName,
-  insertGenre,
-  updateGenres,
-  getTopGenres,
-  updateGenre,
+  getPopularGenres,
   getGenreById,
+  getGamesGenres,
+  getGenresGames,
+  insertGenre,
+  addGamesGenres,
+  updateGamesGenres,
+  updateGenre,
   deleteGenre,
 };
