@@ -1,3 +1,13 @@
+:root {
+  /* color */
+  --clr-blue: hsl(213, 74%, 15%);
+  --clr-teal: hsl(168, 58%, 41%);
+  --clr-green: hsl(146, 29%, 63%);
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-light-gray: hsl(0, 0%, 94%);
+  --clr-black: hsl(0, 0%, 0%);
+}
+
 *,
 *::before,
 *::after {
@@ -11,6 +21,7 @@
 }
 
 body {
+  background-color: var(--clr-light-gray);
   min-height: 100vh;
   line-height: 1.5;
   font-family: system-ui, sans-serif;
@@ -40,4 +51,21 @@ h6 {
 p {
   max-width: 75ch;
   text-wrap: pretty;
+}
+
+nav {
+  background-color: var(--clr-white);
+  padding: 1em;
+}
+
+nav > a:link,
+nav > a:visited {
+  color: hsl(0, 0%, 0%);
+  text-decoration: none;
+}
+
+nav > a:hover,
+nav > a:visited:hover {
+  color: hsl(168, 58%, 41%);
+  text-decoration: underline;
 }
