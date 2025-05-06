@@ -11,8 +11,10 @@ const gameDb = require("./db/gameQueries");
 const genreDb = require("./db/genreQueries");
 const developerDb = require("./db/developerQueries");
 
+const assetsPath = path.join(__dirname, "public");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
 
