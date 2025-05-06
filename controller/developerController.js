@@ -1,14 +1,14 @@
 const db = require("../db/developerQueries");
 
 exports.getDevelopers = async (req, res) => {
-  res.render("developers", {
+  res.render("developers/developers", {
     title: "Developers",
     developers: await db.getAllDevelopers(),
   });
 };
 
 exports.createDeveloperGet = async (req, res) => {
-  res.render("createDevelopers", {
+  res.render("developers/createDevelopers", {
     title: "Create Developer",
   });
 };
@@ -21,7 +21,7 @@ exports.createDeveloperPost = async (req, res) => {
 
 exports.viewDeveloper = async (req, res) => {
   const developer = (await db.getDeveloperById(req.params.id))[0];
-  res.render("viewDeveloper", {
+  res.render("developers/viewDeveloper", {
     title: developer.developer,
     developer: developer,
     developerGames: await db.getDevelopersGames(req.params.id),
@@ -30,7 +30,7 @@ exports.viewDeveloper = async (req, res) => {
 
 exports.updateDeveloperGet = async (req, res) => {
   const developer = (await db.getDeveloperById(req.params.id))[0];
-  res.render("updateDeveloper", {
+  res.render("developers/updateDeveloper", {
     title: developer.developer,
     developer: developer,
   });

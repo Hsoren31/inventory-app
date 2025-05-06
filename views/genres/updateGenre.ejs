@@ -7,10 +7,16 @@
     <title><%= title %></title>
   </head>
   <body>
+    <%- include("../partials/navbar.ejs") %>
     <h1><%= title %></h1>
-    <form action="/genres/create" method="post">
+    <form action="/genres/<%= genre.id %>/update" method="post">
       <label for="genreName">Genre Name: </label>
-      <input type="text" name="genreName" id="genreName" />
+      <input
+        type="text"
+        name="genreName"
+        id="genreName"
+        value="<%= genre.genre %>"
+      />
       <button type="submit">Submit</button>
     </form>
   </body>

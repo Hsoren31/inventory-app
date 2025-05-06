@@ -3,13 +3,13 @@ const genreDb = require("../db/genreQueries");
 const developerDb = require("../db/developerQueries");
 
 exports.getGames = async (req, res) => {
-  res.render("games", {
+  res.render("games/games", {
     games: await db.getAllGames(),
   });
 };
 
 exports.viewGame = async (req, res) => {
-  res.render("viewGame", {
+  res.render("games/viewGame", {
     game: (await db.getGameById(req.params.id))[0],
     developers: await developerDb.getGamesDevelopers(req.params.id),
     genres: await genreDb.getGamesGenres(req.params.id),
@@ -17,7 +17,7 @@ exports.viewGame = async (req, res) => {
 };
 
 exports.createGameGet = async (req, res) => {
-  res.render("createGame", {
+  res.render("games/createGame", {
     title: "Create Game",
     developers: await developerDb.getAllDevelopers(),
     genres: await genreDb.getAllGenres(),
@@ -31,7 +31,7 @@ exports.createGamePost = async (req, res) => {
 };
 
 exports.gameUpdateGet = async (req, res) => {
-  res.render("updateGame", {
+  res.render("games/updateGame", {
     title: "Update Game",
     game: (await db.getGameById(req.params.id))[0],
     developers: await developerDb.getAllDevelopers(),
