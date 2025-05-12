@@ -3,16 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/forms.css" />
     <title><%= title %></title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1><%= title %></h1>
+    <h1 class="form-title"><%= title %></h1>
     <form action="/developers/create" method="post">
-      <label for="developer">Developer Name: </label>
-      <input type="text" name="developer" id="developer" />
-      <button type="submit">Submit Developer</button>
+      <div class="form-row">
+        <label for="developer">Developer Name: </label>
+        <input type="text" name="developer" id="developer" />
+      </div>
+      <div class="form-row">
+        <button type="submit">Submit Developer</button>
+      </div>
     </form>
   </body>
 </html>

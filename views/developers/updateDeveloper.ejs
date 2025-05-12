@@ -3,21 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/forms.css" />
     <title><%= title.developer %></title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1><%= title.developer %></h1>
+    <h1 class="form-title"><%= title.developer %></h1>
     <form action="/developers/<%= developer.id %>/update" method="post">
-      <label for="developer">Developer Name: </label>
-      <input
-        type="text"
-        name="developer"
-        id="developer"
-        value="<%= developer.developer %>"
-      />
-      <button type="submit">Update Developer</button>
+      <div class="form-row">
+        <label for="developer">Developer Name: </label>
+        <input
+          type="text"
+          name="developer"
+          id="developer"
+          value="<%= developer.developer %>"
+        />
+      </div>
+      <div class="form-row">
+        <button type="submit">Update Developer</button>
+      </div>
     </form>
   </body>
 </html>
