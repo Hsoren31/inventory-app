@@ -3,66 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/forms.css" />
     <title><%= title %></title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1><%= title %></h1>
+    <h1 class="form-title"><%= title %></h1>
     <form action="/games/<%= game.id %>/update" method="post">
-      <label for="title">Title: </label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        value="<%= game.title %>"
-        required
-      />
-      <label for="year">Release Year: </label>
-      <input
-        type="number"
-        name="year"
-        id="year"
-        value="<%= game.year %>"
-        required
-      />
-      <label for="price">Price: </label>
-      <input
-        type="number"
-        name="price"
-        id="price"
-        value="<%= game.price %>"
-        required
-      />
-      <fieldset>
+      <div class="form-row">
+        <label for="title">Title: </label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value="<%= game.title %>"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <label for="year">Release Year: </label>
+        <input
+          type="number"
+          name="year"
+          id="year"
+          value="<%= game.year %>"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <label for="price">Price: </label>
+        <input
+          type="number"
+          name="price"
+          id="price"
+          value="<%= game.price %>"
+          required
+        />
+      </div>
+      <fieldset class="checkbox-container">
         <legend>Developers:</legend>
-        <% developers.forEach(developer => { %>
-        <div>
-          <input type="checkbox" name="developers" id="<%= developer %>"
-          value="<%= developer.id %>" <%=
-          gamesDeveloper.includes(developer.developer) ? "checked" : "" %> />
-          <label for="developers"
-            ><%= developer.developer.charAt(0).toUpperCase() +
-            developer.developer.slice(1) %></label
-          >
-        </div>
-        <% }) %>
+        <ul>
+          <% developers.forEach(developer => { %>
+          <li class="checkbox-row">
+            <input type="checkbox" name="developers" id="<%= developer %>"
+            value="<%= developer.id %>" <%=
+            gamesDeveloper.includes(developer.developer) ? "checked" : "" %> />
+            <label class="checkbox-label" for="<%= developer.id %>"
+              ><%= developer.developer.charAt(0).toUpperCase() +
+              developer.developer.slice(1) %></label
+            >
+          </li>
+          <% }) %>
+        </ul>
       </fieldset>
-      <fieldset>
+      <fieldset class="checkbox-container">
         <legend>Genres:</legend>
-        <% genres.forEach(genre => { %>
-        <div>
-          <input type="checkbox" name="genres" id="<%= genre.id %>" value="<%=
-          genre.id %>" <%= gamesGenre.includes(genre.genre) ? "checked" : "" %>
-          />
-          <label for="genres"
-            ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
-            %></label
-          >
-        </div>
-        <% }) %>
+        <ul>
+          <% genres.forEach(genre => { %>
+          <li class="checkbox-row">
+            <input type="checkbox" name="genres" id="<%= genre.id %>" value="<%=
+            genre.id %>" <%= gamesGenre.includes(genre.genre) ? "checked" : ""
+            %> />
+            <label for="<%= genre.id %>"
+              ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
+              %></label
+            >
+          </li>
+          <% }) %>
+        </ul>
       </fieldset>
-      <button type="submit">Submit Game</button>
+      <div class="form-row">
+        <button type="submit">Submit Game</button>
+      </div>
     </form>
   </body>
 </html>
