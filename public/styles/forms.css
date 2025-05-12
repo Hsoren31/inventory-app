@@ -1,0 +1,99 @@
+@import url(./styles.css);
+
+h1 {
+  width: fit-content;
+  margin: 1rem auto;
+}
+
+form {
+  max-width: calc(100% - 30px);
+  display: grid;
+  gap: 20px;
+  padding: 1.5rem 2rem;
+  margin: 1rem auto;
+
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 3px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.form-row label {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="number"] {
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 3px;
+
+  padding: 7px;
+
+  font-size: 14px;
+}
+
+fieldset {
+  border-radius: 3px;
+  border: 1px solid var(--clr-light-gray);
+}
+
+legend {
+  margin: 1rem;
+  padding: 0.25rem 1rem;
+  background-color: var(--clr-green);
+  color: var(--clr-white);
+  border-radius: 3px;
+}
+
+.checkbox-container > ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  padding: 0.25rem 1rem;
+  text-wrap: balance;
+}
+
+.checkbox-row {
+  list-style: none;
+  accent-color: var(--clr-green);
+  display: flex;
+  gap: 10px;
+  max-width: calc(100% - 2rem);
+  text-wrap: balance;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.checkbox-row label:hover,
+.checkbox-row input:hover {
+  cursor: pointer;
+}
+
+.form-row button {
+  font-size: 1rem;
+  font-weight: bold;
+
+  color: var(--clr-white);
+  background-color: var(--clr-green);
+
+  border: none;
+  border-radius: 3px;
+
+  padding: 10px 40px;
+  cursor: pointer;
+}
+
+.form-row button:hover {
+  background-color: var(--clr-light-green);
+}
+
+.form-row button:active {
+  background-color: var(--clr-dark-green);
+}
