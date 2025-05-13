@@ -3,38 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/index.css" />
     <title>Home</title>
   </head>
   <body>
     <%- include("./partials/navbar.ejs") %>
-    <h2>Popular Genres:</h2>
-    <ul>
-      <% topGenres.map((genre) => { %>
-      <a href="/genres/<%= genre.id %>"
-        ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1) %></a
-      >
-      <%})%>
-      <a href="/genres">View All Genres</a>
+    <h2 class="popular-header">Popular Genres:</h2>
+    <ul class="popular-list">
+      <% topGenres.map((genre) => { %> <%- include("./partials/popularCard.ejs",
+      {link: "/genres/" + genre.id, text: genre.genre}) %> <%})%>
+      <a class="popular-item" href="/genres"><span>View All Games</span></a>
     </ul>
-    <h2>Popular Developers:</h2>
-    <ul>
-      <% topDevelopers.map((developer) => { %>
-      <a href="/developers/<%= developer.id %>"
-        ><%= developer.developer.charAt(0).toUpperCase() +
-        developer.developer.slice(1) %></a
+    <h2 class="popular-header">Popular Developers:</h2>
+    <ul class="popular-list">
+      <% topDevelopers.map((developer) => { %> <%-
+      include("./partials/popularCard.ejs", {link: "/developers/" +
+      developer.id, text: developer.developer}) %> <%})%>
+      <a class="popular-item" href="/developers"
+        ><span>View All Developers</span></a
       >
-      <%})%>
-      <a href="/developers">View All Developers</a>
     </ul>
-    <h2>Newest Games:</h2>
-    <ul>
-      <% newestGames.map((game) => { %>
-      <a href="/games/<%= game.id %>"
-        ><%= game.title.charAt(0).toUpperCase() + game.title.slice(1) %></a
-      >
-      <%})%>
-      <a href="/games">View All Games</a>
+    <h2 class="popular-header">Newest Games:</h2>
+    <ul class="popular-list">
+      <% newestGames.map((game) => { %> <%-
+      include("./partials/popularCard.ejs", {link: "/games/" +game.id, text:
+      game.title})%> <%})%>
+      <a class="popular-item" href="/games"><span>View All Games</span></a>
     </ul>
   </body>
 </html>
