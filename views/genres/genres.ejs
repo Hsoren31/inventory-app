@@ -3,19 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/genres.css" />
     <title><%= title %></title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1><%= title %></h1>
-    <ul>
-      <% genres.map((genre) => { %>
-      <a href="/genres/<%= genre.id%>"
-        ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1) %></a
-      >
-      <%}) %>
-    </ul>
-    <a href="/genres/create">Create Genre</a>
+    <div class="container">
+      <header>
+        <h1><%= title %></h1>
+        <a class="create" href="/genres/create">Create Genre</a>
+      </header>
+      <ul class="genres-list">
+        <% genres.map((genre) => { %> <%-
+        include("../partials/listItemCard.ejs", { link: "/genres/" + genre.id,
+        text: genre.genre}) %> <%}) %>
+      </ul>
+    </div>
   </body>
 </html>
