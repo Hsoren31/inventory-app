@@ -4,20 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/games.css" />
     <title>Games</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1>Games:</h1>
-    <a href="/games/create">Add Game</a>
-    <ul>
-      <% games.map((game) => { %>
-      <li>
-        <a href="/games/<%= game.id %>">
-          <%= game.title %>, <%=game.year %>, $<%= game.price %>
-        </a>
-      </li>
-      <%}) %>
+    <header>
+      <h1>Games</h1>
+      <a class="create" href="/games/create">Create Game</a>
+    </header>
+    <ul class="games-list">
+      <% games.map((game) => { %> <%- include("../partials/gameCard.ejs",
+      {game}) %> <%}) %>
     </ul>
   </body>
 </html>

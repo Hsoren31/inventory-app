@@ -3,36 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/games.css" />
     <title><%= game.title %></title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1><%= game.title %></h1>
-    <ul>
-      <li>Release Year: <%= game.year %></li>
-      <li>Price: $<%= game.price %></li>
-      <h2>Developers:</h2>
-      <% developers.forEach((developer) => {%>
-      <li>
-        <%=developer.developer.charAt(0).toUpperCase() +
-        developer.developer.slice(1)%>
-      </li>
-      <%})%>
-      <h2>Genres:</h2>
-      <% genres.forEach((genre) => { %>
-      <li><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)%></li>
-      <%})%>
-    </ul>
-
-    <a href="/games/<%= game.id %>/update">Update</a>
-    <form action="/games/<%= game.id %>/delete" method="post">
-      <button
-        type="submit"
-        onclick="return confirm('Are you sure you want to delete this game?');"
-      >
-        Delete
-      </button>
-    </form>
+    <div class="container">
+      <div class="game">
+        <h1 class="game-title"><%= game.title %></h1>
+        <ul class="game-details">
+          <li>
+            <span class="label">Release Year: </span>
+            <span class="detail"><%= game.year %></span>
+          </li>
+          <li>
+            <span class="label">Price: </span>
+            <span class="detail">$<%= game.price %></span>
+          </li>
+          <li>
+            <span class="label">Developers: </span>
+            <% developers.forEach((developer) => {%>
+            <span class="detail"
+              ><%= developer.developer.charAt(0).toUpperCase() +
+              developer.developer.slice(1) %></span
+            >
+            <%})%>
+          </li>
+          <li>
+            <span class="label">Genres: </span>
+            <% genres.forEach((genre) => { %>
+            <span class="detail"
+              ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
+              %></span
+            >
+            <%})%>
+          </li>
+        </ul>
+        <div class="game-buttons">
+          <a href="/games/<%= game.id %>/update">Update</a>
+          <form action="/games/<%= game.id %>/delete" method="post">
+            <button
+              class="delete"
+              type="submit"
+              onclick="return confirm('Are you sure you want to delete this game?');"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+      <a href="/games">Go Back</a>
+    </div>
   </body>
 </html>
