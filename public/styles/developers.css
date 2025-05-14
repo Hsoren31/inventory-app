@@ -1,0 +1,66 @@
+@import url("./styles.css");
+
+header {
+  padding-left: 2rem;
+}
+
+/* ALL DEVELOPERS */
+ul.developer.category-list {
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 0 auto;
+}
+
+/*VIEW SINGLE DEVELOPER */
+ul.developers-games {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  padding: 0 2rem;
+  list-style: none;
+}
+
+ul.developers-games > li {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 3px;
+  background-color: var(--clr-white);
+  padding: 0.5rem 1rem;
+}
+
+div.developer-edit {
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (max-width: 425px) {
+  header.developer {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  ul.developer.category-list {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+
+  .container {
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+
+  div.developer-edit {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  ul.developer.category-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
