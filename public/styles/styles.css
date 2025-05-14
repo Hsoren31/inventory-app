@@ -2,12 +2,19 @@
   /* color */
   --clr-blue: hsl(213, 74%, 15%);
   --clr-teal: hsl(168, 58%, 41%);
+  --clr-light-green: hsl(146, 29%, 68%);
   --clr-green: hsl(146, 29%, 63%);
+  --clr-dark-green: hsl(146, 29%, 56%);
   --clr-white: hsl(0, 0%, 100%);
-  --clr-light-gray: hsl(0, 0%, 94%);
+  --clr-shaded-white: hsl(0, 0%, 94%);
+  --clr-light-gray: hsl(210, 8%, 85%);
   --clr-black: hsl(0, 0%, 0%);
+  --clr-shadow: hsla(0, 0%, 0%, 0.3);
+  --clr-red: hsl(348, 55%, 49%);
+  --clr-shaded-red: hsl(348, 55%, 44%);
 }
 
+/* CSS RESET */
 *,
 *::before,
 *::after {
@@ -21,7 +28,7 @@
 }
 
 body {
-  background-color: var(--clr-light-gray);
+  background-color: var(--clr-shaded-white);
   min-height: 100vh;
   line-height: 1.5;
   font-family: system-ui, sans-serif;
@@ -36,6 +43,7 @@ button,
 textarea,
 select {
   font: inherit;
+  font-size: 100%;
 }
 
 h1,
@@ -53,19 +61,120 @@ p {
   text-wrap: pretty;
 }
 
-nav {
-  background-color: var(--clr-white);
-  padding: 1em;
+/* FONT-SIZING */
+
+h1 {
+  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);
 }
 
-nav > a:link,
-nav > a:visited {
+h2 {
+  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-size: clamp(1.1rem, 1.06rem + 0.19vw, 1.3rem);
+}
+/* LINKS */
+
+a:link,
+a:visited {
   color: hsl(0, 0%, 0%);
   text-decoration: none;
 }
 
-nav > a:hover,
-nav > a:visited:hover {
+a:hover,
+a:visited:hover {
   color: hsl(168, 58%, 41%);
   text-decoration: underline;
+  transition: color 450ms, text-decoration 450ms;
+}
+
+/* NAVIGATION BAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--clr-white);
+  padding: 1rem;
+}
+
+nav > ul {
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* PAGE CONTAINER */
+.container {
+  display: grid;
+  gap: 1rem;
+  max-width: calc(80%);
+  margin: 2rem auto;
+}
+
+/* BUTTONS */
+/* CREATE BUTTON */
+.create,
+.create:link,
+.create:visited {
+  padding: 0.5rem 1rem;
+  background-color: var(--clr-green);
+  color: var(--clr-white);
+  border-radius: 1em;
+}
+
+.create:hover,
+a.create:hover {
+  background-color: var(--clr-teal);
+  color: var(--clr-white);
+  text-decoration: none;
+
+  transition: background-color 450ms, color 450ms;
+}
+
+/* DELETE BUTTON */
+button.delete {
+  padding: 0.5rem 1rem;
+  background-color: var(--clr-red);
+  color: var(--clr-white);
+  border-radius: 0.25rem;
+  border: none;
+}
+
+button.delete:hover {
+  cursor: grab;
+  background-color: var(--clr-shaded-red);
+}
+
+/* LISTS */
+ul.category-list {
+  margin: 1rem auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.list-item {
+  background-color: var(--clr-white);
+  border: 1.5px solid var(--clr-shadow);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 5px 0px var(--clr-shadow);
+  padding: 1em 3em;
+  list-style: none;
+
+  transition: border-color 450ms;
+}
+
+.list-item:hover {
+  cursor: grab;
+  border-color: var(--clr-teal);
 }
