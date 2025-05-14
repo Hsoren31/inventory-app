@@ -3,30 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/developers.css" />
     <title><%= title.developer %> Games</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1>
-      <%= developer.developer.charAt(0).toUpperCase() +
-      developer.developer.slice(1) %> Games
-    </h1>
-    <ul>
-      <% if (!developerGames.length) { %>
-      <p>No Games Available</p>
-      <%} %> <% developerGames.map((game) => { %>
-      <li><a href="/games/<%= game.id %>"><%= game.title %></a></li>
-      <%})%>
-    </ul>
-    <a href="/developers/<%= developer.id %>/update">Rename Developer</a>
-    <form action="/developers/<%= developer.id %>/delete" method="post">
-      <button
-        type="submit"
-        onclick="return confirm('Are you sure you want to delete developer?')"
-      >
-        Delete Developer
-      </button>
-    </form>
+    <div class="container">
+      <header>
+        <h1>
+          <%= developer.developer.charAt(0).toUpperCase() +
+          developer.developer.slice(1) %> Games
+        </h1>
+      </header>
+      <ul class="developers-games">
+        <% if (!developerGames.length) { %>
+        <p>No Games Available</p>
+        <%} %> <% developerGames.map((game) => { %>
+        <li><a href="/games/<%= game.id %>"><%= game.title %></a></li>
+        <%})%>
+      </ul>
+      <div class="developer-edit">
+        <a href="/developers/<%= developer.id %>/update">Rename Developer</a>
+        <form action="/developers/<%= developer.id %>/delete" method="post">
+          <button
+            class="delete"
+            type="submit"
+            onclick="return confirm('Are you sure you want to delete developer?')"
+          >
+            Delete Developer
+          </button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
