@@ -1,17 +1,26 @@
 :root {
   /* color */
-  --clr-blue: hsl(213, 74%, 15%);
+  --clr-black: hsl(0, 0%, 0%);
+  --clr-rich-black: hsl(216, 100%, 4%);
+  --clr-gray: hsl(203, 22%, 84%);
+  --clr-white: hsl(0, 0%, 100%);
+
+  --clr-dark-blue: hsl(211, 100%, 12%);
+  --clr-blue: hsl(209, 100%, 20%);
+  --clr-light-blue: hsl(209, 100%, 28%);
+  --clr-orange-yellow: hsl(46, 100%, 50%);
+  --clr-yellow: hsl(50, 100%, 52%);
+  --clr-red: hsl(356, 70%, 51%);
+  --clr-shaded-red: hsl(356, 70%, 48%);
+
   --clr-teal: hsl(168, 58%, 41%);
   --clr-light-green: hsl(146, 29%, 68%);
   --clr-green: hsl(146, 29%, 63%);
   --clr-dark-green: hsl(146, 29%, 56%);
-  --clr-white: hsl(0, 0%, 100%);
+
   --clr-shaded-white: hsl(0, 0%, 94%);
   --clr-light-gray: hsl(210, 8%, 85%);
-  --clr-black: hsl(0, 0%, 0%);
   --clr-shadow: hsla(0, 0%, 0%, 0.3);
-  --clr-red: hsl(348, 55%, 49%);
-  --clr-shaded-red: hsl(348, 55%, 44%);
 }
 
 /* CSS RESET */
@@ -28,7 +37,7 @@
 }
 
 body {
-  background-color: var(--clr-shaded-white);
+  background-color: var(--clr-gray);
   min-height: 100vh;
   line-height: 1.5;
   font-family: system-ui, sans-serif;
@@ -81,15 +90,13 @@ h3 {
 
 a:link,
 a:visited {
-  color: hsl(0, 0%, 0%);
+  color: var(--clr-black);
   text-decoration: none;
 }
 
 a:hover,
 a:visited:hover {
-  color: hsl(168, 58%, 41%);
-  text-decoration: underline;
-  transition: color 450ms, text-decoration 450ms;
+  color: var(--clr-blue);
 }
 
 /* NAVIGATION BAR */
@@ -115,7 +122,7 @@ header {
 }
 
 /* PAGE CONTAINER */
-.container {
+.page_container {
   display: grid;
   gap: 1rem;
   max-width: calc(80%);
@@ -156,25 +163,8 @@ button.delete:hover {
   background-color: var(--clr-shaded-red);
 }
 
-/* LISTS */
-ul.category-list {
-  margin: 1rem auto;
-  display: grid;
-  gap: 1rem;
-}
-
-.list-item {
-  background-color: var(--clr-white);
-  border: 1.5px solid var(--clr-shadow);
-  border-radius: 1rem;
-  box-shadow: 1px 1px 5px 0px var(--clr-shadow);
-  padding: 1em 3em;
-  list-style: none;
-
-  transition: border-color 450ms;
-}
-
-.list-item:hover {
-  cursor: grab;
-  border-color: var(--clr-teal);
+@media screen and (max-width: 425px) {
+  .page_container {
+    max-width: 100%;
+  }
 }

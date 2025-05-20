@@ -8,27 +8,61 @@
   </head>
   <body>
     <%- include("./partials/navbar.ejs") %>
-    <h2 class="popular-header">Popular Genres:</h2>
-    <ul class="popular-list">
-      <% topGenres.map((genre) => { %> <%- include("./partials/popularCard.ejs",
-      {link: "/genres/" + genre.id, text: genre.genre}) %> <%})%>
-      <a class="popular-item" href="/genres"><span>View All Games</span></a>
-    </ul>
-    <h2 class="popular-header">Popular Developers:</h2>
-    <ul class="popular-list">
-      <% topDevelopers.map((developer) => { %> <%-
-      include("./partials/popularCard.ejs", {link: "/developers/" +
-      developer.id, text: developer.developer}) %> <%})%>
-      <a class="popular-item" href="/developers"
-        ><span>View All Developers</span></a
-      >
-    </ul>
-    <h2 class="popular-header">Newest Games:</h2>
-    <ul class="popular-list">
-      <% newestGames.map((game) => { %> <%-
-      include("./partials/popularCard.ejs", {link: "/games/" +game.id, text:
-      game.title})%> <%})%>
-      <a class="popular-item" href="/games"><span>View All Games</span></a>
-    </ul>
+    <div class="page_container">
+      <div class="home_container">
+        <h2 class="container_title">Browse By Genre</h2>
+        <div class="carousel_container">
+          <ul class="carousel">
+            <% topGenres.map((genre) => { %>
+            <a class="carousel_item" href="/genres/<%=genre.id%>">
+              <span class="carousel_item_title"
+                ><%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
+                %></span
+              >
+            </a>
+            <%})%>
+            <a class="carousel_item" href="/genres"
+              ><span class="carousel_item_title">View All Genres</span></a
+            >
+          </ul>
+        </div>
+      </div>
+      <div class="home_container">
+        <h2 class="container_title">Browse By Developer</h2>
+        <div class="carousel_container">
+          <ul class="carousel">
+            <% topDevelopers.map((developer) => { %>
+            <a class="carousel_item" href="/developers/<%=developer.id%>">
+              <span class="carousel_item_title"
+                ><%= developer.developer.charAt(0).toUpperCase() +
+                developer.developer.slice(1) %></span
+              >
+            </a>
+            <%})%>
+            <a class="carousel_item" href="/developers"
+              ><span class="carousel_item_title">View All Developers</span></a
+            >
+          </ul>
+        </div>
+      </div>
+      <div class="home_container">
+        <h2 class="container_title">Newest Games</h2>
+        <div class="carousel_container">
+          <ul class="carousel">
+            <% newestGames.map((game) => { %>
+            <a class="carousel_item" href="/games/<%=game.id%>">
+              <span class="carousel_item_title"
+                ><%= game.title.charAt(0).toUpperCase() + game.title.slice(1)
+                %></span
+              >
+            </a>
+            <%})%>
+            <a class="carousel_item" href="/games"
+              ><span class="carousel_item_title">View All Games</span></a
+            >
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
