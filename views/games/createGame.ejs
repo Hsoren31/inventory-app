@@ -8,60 +8,63 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1 class="form-title"><%= title %></h1>
-    <form action="/games/create" method="post">
-      <div class="form-row">
-        <label for="title">Title: </label>
-        <input type="text" name="title" id="title" required />
-      </div>
-      <div class="form-row">
-        <label for="year">Year: </label>
-        <input type="number" name="year" id="year" required />
-      </div>
-      <div class="form-row">
-        <label for="price">Price: </label>
-        <input type="number" name="price" id="price" required />
-      </div>
-      <fieldset class="checkbox-container">
-        <legend>Developers:</legend>
-        <ul>
-          <% developers.forEach(developer => { %>
-          <li class="checkbox-row">
-            <input
-              type="checkbox"
-              name="developers"
-              id="<%= developer.id %>"
-              value="<%= developer.id%>"
-            />
-            <label class="checkbox-label" for="<%= developer.id %>">
-              <%= developer.developer.charAt(0).toUpperCase() +
-              developer.developer.slice(1) %>
-            </label>
-          </li>
-          <% }) %>
-        </ul>
-      </fieldset>
-      <fieldset class="checkbox-container">
-        <legend>Genres:</legend>
-        <ul>
-          <% genres.forEach(genre => { %>
-          <li class="checkbox-row">
-            <input
-              type="checkbox"
-              name="genres"
-              id="<%= genre.id %>"
-              value="<%= genre.id %>"
-            />
-            <label class="checkbox-label" for="<%= genre.id %>">
-              <%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1) %>
-            </label>
-          </li>
-          <% }) %>
-        </ul>
-      </fieldset>
-      <div class="form-row">
-        <button type="submit">Submit Game</button>
-      </div>
-    </form>
+    <div class="page_container">
+      <h1 class="form_title"><%= title %></h1>
+      <form action="/games/create" method="post">
+        <div class="form_row">
+          <label for="title">Title: </label>
+          <input type="text" name="title" id="title" required />
+        </div>
+        <div class="form_row">
+          <label for="year">Year: </label>
+          <input type="number" name="year" id="year" required />
+        </div>
+        <div class="form_row">
+          <label for="price">Price: </label>
+          <input type="number" name="price" id="price" required />
+        </div>
+        <fieldset class="checkbox_container">
+          <legend>Developers:</legend>
+          <ul>
+            <% developers.forEach(developer => { %>
+            <li class="checkbox_row">
+              <input
+                type="checkbox"
+                name="developers"
+                id="<%= developer.id %>"
+                value="<%= developer.id%>"
+              />
+              <label class="checkbox_label" for="<%= developer.id %>">
+                <%= developer.developer.charAt(0).toUpperCase() +
+                developer.developer.slice(1) %>
+              </label>
+            </li>
+            <% }) %>
+          </ul>
+        </fieldset>
+        <fieldset class="checkbox_container">
+          <legend>Genres:</legend>
+          <ul>
+            <% genres.forEach(genre => { %>
+            <li class="checkbox_row">
+              <input
+                type="checkbox"
+                name="genres"
+                id="<%= genre.id %>"
+                value="<%= genre.id %>"
+              />
+              <label class="checkbox_label" for="<%= genre.id %>">
+                <%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)
+                %>
+              </label>
+            </li>
+            <% }) %>
+          </ul>
+        </fieldset>
+        <div class="form_row">
+          <button type="submit">Submit Game</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
