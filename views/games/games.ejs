@@ -9,13 +9,15 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <header>
-      <h1>Games</h1>
-      <a class="create" href="/games/create">Create Game</a>
-    </header>
-    <ul class="games-list">
-      <% games.map((game) => { %> <%- include("../partials/gameCard.ejs",
-      {game}) %> <%}) %>
-    </ul>
+    <div class="page_container">
+      <header>
+        <h1>Games</h1>
+        <a class="create" href="/games/create">Create Game</a>
+      </header>
+      <ul class="games_list">
+        <% games.map((game) => { %> <%- include("../partials/gameCard.ejs",
+        {game}) %> <%}) %>
+      </ul>
+    </div>
   </body>
 </html>

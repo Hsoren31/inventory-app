@@ -24,7 +24,7 @@ async function getDeveloperById(id) {
 
 async function getGamesDevelopers(gameId) {
   const { rows } = await pool.query(
-    "SELECT developer FROM developers JOIN game_developers ON developers.id = developer_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
+    "SELECT developer_id, developer FROM developers JOIN game_developers ON developers.id = developer_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
     [gameId]
   );
   return rows;

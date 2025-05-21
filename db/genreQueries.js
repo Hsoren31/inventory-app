@@ -21,7 +21,7 @@ async function getGenreById(id) {
 
 async function getGamesGenres(gameId) {
   const { rows } = await pool.query(
-    "SELECT genre FROM genres JOIN game_genres ON genres.id = genre_id JOIN games ON games.id = game_id WHERE games.id = ($1)",
+    "SELECT genre_id, genre FROM genres JOIN game_genres ON genres.id = genre_id JOIN games ON games.id = game_id WHERE games.id = ($1) ORDER BY genre ASC",
     [gameId]
   );
   return rows;

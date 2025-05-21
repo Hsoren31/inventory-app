@@ -2,24 +2,20 @@
   /* color */
   --clr-black: hsl(0, 0%, 0%);
   --clr-rich-black: hsl(216, 100%, 4%);
+
   --clr-gray: hsl(203, 22%, 84%);
+  --clr-light-gray: hsl(210, 8%, 85%);
+
   --clr-white: hsl(0, 0%, 100%);
+  --clr-shaded-white: hsl(0, 0%, 94%);
 
   --clr-dark-blue: hsl(211, 100%, 12%);
   --clr-blue: hsl(209, 100%, 20%);
   --clr-light-blue: hsl(209, 100%, 28%);
-  --clr-orange-yellow: hsl(46, 100%, 50%);
-  --clr-yellow: hsl(50, 100%, 52%);
-  --clr-red: hsl(356, 70%, 51%);
-  --clr-shaded-red: hsl(356, 70%, 48%);
 
-  --clr-teal: hsl(168, 58%, 41%);
-  --clr-light-green: hsl(146, 29%, 68%);
-  --clr-green: hsl(146, 29%, 63%);
-  --clr-dark-green: hsl(146, 29%, 56%);
+  --clr-red: hsl(352, 70%, 50%);
+  --clr-dark-red: hsl(352, 70%, 40%);
 
-  --clr-shaded-white: hsl(0, 0%, 94%);
-  --clr-light-gray: hsl(210, 8%, 85%);
   --clr-shadow: hsla(0, 0%, 0%, 0.3);
 }
 
@@ -135,24 +131,24 @@ header {
 .create:link,
 .create:visited {
   padding: 0.5rem 1rem;
-  background-color: var(--clr-green);
+  background-color: var(--clr-blue);
   color: var(--clr-white);
   border-radius: 1em;
 }
 
 .create:hover,
 a.create:hover {
-  background-color: var(--clr-teal);
+  background-color: var(--clr-light-blue);
   color: var(--clr-white);
   text-decoration: none;
 
-  transition: background-color 450ms, color 450ms;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 /* DELETE BUTTON */
 button.delete {
   padding: 0.5rem 1rem;
-  background-color: var(--clr-red);
+  background-color: var(--clr-dark-red);
   color: var(--clr-white);
   border-radius: 0.25rem;
   border: none;
@@ -160,7 +156,26 @@ button.delete {
 
 button.delete:hover {
   cursor: grab;
-  background-color: var(--clr-shaded-red);
+  background-color: var(--clr-red);
+
+  transition: background-color 0.5s;
+}
+
+/* UPDATE LINK/BUTTON */
+a.update {
+  padding: 0.5rem 1rem;
+  background-color: var(--clr-blue);
+  color: var(--clr-white);
+  border-radius: 0.25rem;
+  border: none;
+}
+
+a.update:hover {
+  cursor: pointer;
+  background-color: var(--clr-light-blue);
+  color: var(--clr-white);
+
+  transition: background-color 0.5s;
 }
 
 @media screen and (max-width: 425px) {
