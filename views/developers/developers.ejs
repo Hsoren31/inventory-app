@@ -8,15 +8,20 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="container">
-      <header class="developer">
+    <div class="page_container">
+      <header>
         <h1><%= title %></h1>
         <a class="create" href="/developers/create">Create Developer</a>
       </header>
-      <ul class="developer category-list">
-        <% developers.map((developer) => { %> <%-
-        include("../partials/listItemCard.ejs", {link: "/developers/" +
-        developer.id, text: developer.developer} ) %> <% }) %>
+      <ul class="developers_list">
+        <% developers.map((developer) => { %>
+        <a href="/developers/<%= developer.id %>" class="list_item">
+          <span>
+            <%=developer.developer.charAt(0).toUpperCase() +
+            developer.developer.slice(1) %>
+          </span>
+        </a>
+        <% }) %>
       </ul>
     </div>
   </body>

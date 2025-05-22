@@ -8,22 +8,24 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="container">
+    <div class="page_container">
       <header>
-        <h1>
+        <h1 class="developer_title">
           <%= developer.developer.charAt(0).toUpperCase() +
           developer.developer.slice(1) %> Games
         </h1>
       </header>
-      <ul class="developers-games">
+      <ul class="developers_games">
         <% if (!developerGames.length) { %>
         <p>No Games Available</p>
-        <%} %> <% developerGames.map((game) => { %>
-        <li><a href="/games/<%= game.id %>"><%= game.title %></a></li>
+        <%}%> <% developerGames.map((game) => { %>
+        <a href="/games/<%= game.id %>"><span><%= game.title %></span></a>
         <%})%>
       </ul>
-      <div class="developer-edit">
-        <a href="/developers/<%= developer.id %>/update">Rename Developer</a>
+      <div class="developer_edit">
+        <a class="update" href="/developers/<%= developer.id %>/update"
+          >Rename Developer</a
+        >
         <form action="/developers/<%= developer.id %>/delete" method="post">
           <button
             class="delete"

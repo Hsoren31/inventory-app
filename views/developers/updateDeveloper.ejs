@@ -4,24 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/forms.css" />
-    <title><%= title.developer %></title>
+    <title>Update Developer</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1 class="form-title"><%= title.developer %></h1>
-    <form action="/developers/<%= developer.id %>/update" method="post">
-      <div class="form-row">
-        <label for="developer">Developer Name: </label>
-        <input
-          type="text"
-          name="developer"
-          id="developer"
-          value="<%= developer.developer %>"
-        />
-      </div>
-      <div class="form-row">
-        <button type="submit">Update Developer</button>
-      </div>
-    </form>
+    <div class="page_container">
+      <h1 class="form_title">Update Developer</h1>
+      <form action="/developers/<%= developer.id %>/update" method="post">
+        <div class="form_row">
+          <label for="developer">Developer Name: </label>
+          <input
+            type="text"
+            name="developer"
+            id="developer"
+            value="<%= developer.developer %>"
+          />
+        </div>
+        <div class="form_row">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>

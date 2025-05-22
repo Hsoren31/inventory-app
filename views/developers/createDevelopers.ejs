@@ -8,15 +8,17 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1 class="form-title"><%= title %></h1>
-    <form action="/developers/create" method="post">
-      <div class="form-row">
-        <label for="developer">Developer Name: </label>
-        <input type="text" name="developer" id="developer" />
-      </div>
-      <div class="form-row">
-        <button type="submit">Submit Developer</button>
-      </div>
-    </form>
+    <div class="page_container">
+      <h1 class="form_title"><%= title %></h1>
+      <form action="/developers/create" method="post">
+        <div class="form_row">
+          <label for="developer">Developer Name: </label>
+          <input type="text" name="developer" id="developer" />
+        </div>
+        <div class="form_row">
+          <button type="submit">Submit Developer</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
