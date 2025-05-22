@@ -8,15 +8,19 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="container">
+    <div class="page_container">
       <header>
         <h1><%= title %></h1>
         <a class="create" href="/genres/create">Create Genre</a>
       </header>
-      <ul class="genres-list">
-        <% genres.map((genre) => { %> <%-
-        include("../partials/listItemCard.ejs", { link: "/genres/" + genre.id,
-        text: genre.genre}) %> <%}) %>
+      <ul class="genres_list">
+        <% genres.map((genre) => { %>
+        <a href="/genres/<%=genre.id%>" class="list_item">
+          <span>
+            <%= genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)%>
+          </span>
+        </a>
+        <%})%>
       </ul>
     </div>
   </body>
