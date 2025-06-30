@@ -3,7 +3,7 @@ const genreQuery = require("./genreQueries");
 const developerQuery = require("./developerQueries");
 
 async function getAllGames() {
-  const { rows } = await pool.query("SELECT * FROM games ORDER BY title");
+  const { rows } = await pool.query("SELECT * FROM games ORDER BY title;");
   return rows;
 }
 

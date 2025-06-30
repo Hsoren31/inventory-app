@@ -15,11 +15,13 @@
           developer.developer.slice(1) %> Games
         </h1>
       </header>
-      <ul class="developers_games">
+      <ul class="developers_list">
         <% if (!developerGames.length) { %>
         <p>No Games Available</p>
         <%}%> <% developerGames.map((game) => { %>
-        <a href="/games/<%= game.id %>"><span><%= game.title %></span></a>
+        <a class="list_item" href="/games/<%= game.id %>"
+          ><span><%= game.title %></span></a
+        >
         <%})%>
       </ul>
       <div class="developer_edit">

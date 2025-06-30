@@ -178,8 +178,14 @@ a.update:hover {
   transition: background-color 0.5s;
 }
 
+/* NOT AVAILABLE OPTION */
+.not_available {
+  font-style: italic;
+  margin-left: 2rem;
+}
 @media screen and (max-width: 425px) {
   .page_container {
-    max-width: 100%;
+    max-width: calc(100% - 10px);
+    margin: 1rem auto;
   }
 }

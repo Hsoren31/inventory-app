@@ -18,7 +18,9 @@
         </h1>
       </header>
       <ul class="genres_list">
-        <% games.map((game) => { %>
+        <% if (!games.length) {%>
+        <p class="not_available">No Games Available</p>
+        <%}%> <% games.map((game) => { %>
         <li class="list_item">
           <a href="/games/<%= game.id %>"><%= game.title %></a>
         </li>
