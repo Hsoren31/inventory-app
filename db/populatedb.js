@@ -47,7 +47,7 @@ INSERT INTO developers (developer) VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.CONNECTION_STRING,
+    connectionString: process.env.DATABASE_PUBLIC_URL,
   });
   await client.connect();
   await client.query(SQL);
