@@ -1,7 +1,6 @@
 #! /usr/bin/env node
-
+const { argv } = require("node:process");
 const { Client } = require("pg");
-require("dotenv").config();
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS games (
@@ -47,7 +46,7 @@ INSERT INTO developers (developer) VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.CONNECTION_STRING,
+    connectionString: argv[2],
   });
   await client.connect();
   await client.query(SQL);
